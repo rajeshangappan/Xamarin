@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace XFTabComponent
+namespace Xam.TabView
 {
     public class XFTabPage
     {

@@ -1,7 +1,7 @@
 ﻿using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace XFTabComponent
+namespace Xam.TabView
 {
     public class XFTabHeaderViewModel
     {

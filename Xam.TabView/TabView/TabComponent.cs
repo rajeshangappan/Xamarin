@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Xamarin.Forms;
 
-namespace XFTabComponent
+namespace Xam.TabView
 {
     public delegate void OnTabClickEventHandler(object sender, OnTabClickedEventArgs args);
     public class XFTabControl : Frame
