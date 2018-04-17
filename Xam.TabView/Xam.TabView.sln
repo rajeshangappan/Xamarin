@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xam.TabView", "TabComponent\Xam.TabView.csproj", "{6DAA8EED-BB15-4BA9-B17B-2239F46C1AC0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xam.TabView", "TabView\Xam.TabView.csproj", "{6DAA8EED-BB15-4BA9-B17B-2239F46C1AC0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +20,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {47D4BF19-E055-4FCF-AA9B-C2CD615EFE44}
+		SolutionGuid = {5E523433-E795-4DD6-9796-88F024111AEC}
 	EndGlobalSection
 EndGlobal

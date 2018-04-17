@@ -1,0 +1,14 @@
+D:\Github\Xam.TabView\TabView\bin\Debug\Xam.TabView.dll
+D:\Github\Xam.TabView\TabView\bin\Debug\Xam.TabView.pdb
+D:\Github\Xam.TabView\TabView\bin\Debug\Xamarin.Forms.Core.dll
+D:\Github\Xam.TabView\TabView\bin\Debug\Xamarin.Forms.Platform.dll
+D:\Github\Xam.TabView\TabView\bin\Debug\Xamarin.Forms.Xaml.dll
+D:\Github\Xam.TabView\TabView\bin\Debug\Xamarin.Forms.Core.pdb
+D:\Github\Xam.TabView\TabView\bin\Debug\Xamarin.Forms.Core.xml
+D:\Github\Xam.TabView\TabView\bin\Debug\Xamarin.Forms.Platform.pdb
+D:\Github\Xam.TabView\TabView\bin\Debug\Xamarin.Forms.Xaml.pdb
+D:\Github\Xam.TabView\TabView\bin\Debug\Xamarin.Forms.Xaml.xml
+D:\Github\Xam.TabView\TabView\obj\Debug\Xam.TabView.csprojResolveAssemblyReference.cache
+D:\Github\Xam.TabView\TabView\obj\Debug\Xam.TabView.csproj.CoreCompileInputs.cache
+D:\Github\Xam.TabView\TabView\obj\Debug\Xam.TabView.dll
+D:\Github\Xam.TabView\TabView\obj\Debug\Xam.TabView.pdb
