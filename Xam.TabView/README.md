@@ -1,7 +1,4 @@
-# XamarinProjects
-
-
-Xamarin Forms Tab Control:
+# Xamarin Forms Tab Control:
 
 This tab control designed by Xamarin.Forms. It has basic tab control options.
 
