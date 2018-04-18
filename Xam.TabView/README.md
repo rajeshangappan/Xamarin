@@ -106,5 +106,4 @@ using XFTabComponent;
             }
 
 Output:
-
- (https://github.com/rajeshangappan/Xamarin/tree/master/TabControl.gif)
+![Image of Tab](https://github.com/rajeshangappan/Xamarin/tree/master/TabControl.gif)
