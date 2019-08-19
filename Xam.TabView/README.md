@@ -9,89 +9,92 @@ Feature:
 3. Option for Tab Header Orientation.
 4. Option for customize the header and body style changes.
 
-NameSpace:
+Sample c#:
 
-using XFTabComponent;
+XFTabControl tab = new XFTabControl
+            {
+                //Apply the Styles to Tab
+                HeaderColor = Color.Gray,
+                HeaderHeight = 30,
+                VerticalOptions = LayoutOptions.FillAndExpand,
+                //Change the Header Position.
+                Position = Position.Top
+            };
+            //Create the Tab Page
 
-**Creation of object:**
+            XFTabPage page1 = new XFTabPage();
 
-            //Create the Tab Control
+            //Create the Header title
 
-            XFTabControl tab = new XFTabControl();
+            page1.Header.Title = "Tab1";
 
-**Add the Styles:**
+            Label content1 = new Label
+            {
+                Text = "This Page Displays Tab1 Content"
+            };
 
-            //Apply the Styles to Tab
+            //Assign the tab body content.
 
-            tab.XFTabBodyColor = Color.Pink;
+            page1.Content = content1;
 
-            tab.HeaderColor = Color.FromRgb(36,133,139);
+            //Add the Page to tab control
 
-            tab.TextColor = Color.FromRgb(165, 211, 190);
-
-            tab.HeaderHeight = 30;
-
-**Change the Header Position:**
-
-            //Change the Header Position.
-
-            tab.Position = Position.Top;
-
-**Create the tab page and add to Control:**
-
-- **Tab Page Header with text:**
+            tab.AddPage(page1);
 
             //Create the Tab Page
 
-            XFTabPage Tp = new XFTabPage();
+            XFTabPage page2 = new XFTabPage();
 
             //Assign the header Text
+            Label headerLabel = new Label
+            {
+                Text = "Tab2"
+            };
 
-            Tp.Header.Text = &quot;tab1&quot;;
+            page2.Header.Content = headerLabel;
 
-            Label l = new Label();
-
-            l.Text = &quot;tab1&quot;;
-
-            l.BackgroundColor = Color.Green;
-
-            //Assign the tab body content.
-
-            Tp.Content = l;
-
-            //Add the Page to tab control
-
-            tab.AddPage(Tp);
-
-- **Tab page header with custom element:**
-
-             //Create the Image
-
-            Image img = new Image();
-
-            img.Source = ImageSource.FromResource(&quot;XFTabControl1.sample.PNG&quot;);
-
-            //Create the Tab Page
-
-            XFTabPage Tp1 = new XFTabPage();
-
-            //Assign the header Content
-
-            Tp1.Header.Content = img;
-
-            l = new Label();
-
-            l.Text = &quot;tab4&quot;;
-
-            l.BackgroundColor = Color.SkyBlue;
+            // Page content
+            Label content2 = new Label
+            {
+                Text = "This Page Displays Tab2 Content"
+            };
 
             //Assign the tab body content.
 
-            Tp1.Content = l;
+            page2.Content = content2;
 
             //Add the Page to tab control
 
-            tab.AddPage(Tp1);
+            tab.AddPage(page2);
+
+
+            tab.TabClicked += Tab_TabClicked;
+
+Sample Xaml:
+
+<tabview:XFTabControl VerticalOptions="FillAndExpand" TabClicked="Tab_TabClicked" HeaderColor="Gray">
+                <tabview:XFTabControl.XFTabPages>
+                    <tabview:XFTabPage>
+                        <tabview:XFTabPage.Header>
+                            <tabview:XFTabHeader Title="Tab1">
+                            </tabview:XFTabHeader>
+                        </tabview:XFTabPage.Header>
+                        <tabview:XFTabPage.Content>
+                            <Label Text="This Page Displays Tab1 Content"></Label>
+                        </tabview:XFTabPage.Content>
+                    </tabview:XFTabPage>
+                    <tabview:XFTabPage>
+                        <tabview:XFTabPage.Header>
+                            <tabview:XFTabHeader>
+                                <Label Text="Tab2"></Label>
+                            </tabview:XFTabHeader>
+                        </tabview:XFTabPage.Header>
+                        <tabview:XFTabPage.Content>
+                            <Label Text="This Page Displays Tab2 Content"></Label>
+                        </tabview:XFTabPage.Content>
+                    </tabview:XFTabPage>
+                </tabview:XFTabControl.XFTabPages>
+            </tabview:XFTabControl>
 
 **Event** :
 
