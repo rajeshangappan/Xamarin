@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:TabViewSample"
+             xmlns:tabview="clr-namespace:Xam.TabView;assembly=Xam1.TabView"
+             x:Class="TabViewSample.MainPage">
+
+    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+        <Label Text="TAB ABOVE CONTENT"></Label>
+
+        <StackLayout x:Name="testing" VerticalOptions="FillAndExpand">
+            <tabview:XFTabControl VerticalOptions="FillAndExpand" TabClicked="Tab_TabClicked" HeaderColor="Gray">
+                <tabview:XFTabControl.XFTabPages>
+                    <tabview:XFTabPage>
+                        <tabview:XFTabPage.Header>
+                            <tabview:XFTabHeader Title="Tab1">
+                            </tabview:XFTabHeader>
+                        </tabview:XFTabPage.Header>
+                        <tabview:XFTabPage.Content>
+                            <Label Text="This Page Displays Tab1 Content"></Label>
+                        </tabview:XFTabPage.Content>
+                    </tabview:XFTabPage>
+                    <tabview:XFTabPage>
+                        <tabview:XFTabPage.Header>
+                            <tabview:XFTabHeader>
+                                <Label Text="Tab2"></Label>
+                            </tabview:XFTabHeader>
+                        </tabview:XFTabPage.Header>
+                        <tabview:XFTabPage.Content>
+                            <Label Text="This Page Displays Tab2 Content"></Label>
+                        </tabview:XFTabPage.Content>
+                    </tabview:XFTabPage>
+                </tabview:XFTabControl.XFTabPages>
+            </tabview:XFTabControl>
+        </StackLayout>
+    </StackLayout>
+
+</ContentPage>

@@ -10,8 +10,8 @@ Feature:
 4. Option for customize the header and body style changes.
 
 Sample c#:
-
-XFTabControl tab = new XFTabControl
+            //XFTab Control
+            XFTabControl tab = new XFTabControl
             {
                 //Apply the Styles to Tab
                 HeaderColor = Color.Gray,
