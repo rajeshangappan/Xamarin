@@ -2,8 +2,22 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.1</Version>
+    <Company>NVTech</Company>
+    <Authors>RajeshAngappan</Authors>
+    <PackageLicenseUrl></PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/rajeshangappan/Xamarin/tree/master/Xam.TabView</PackageProjectUrl>
+    <PackageReleaseNotes>Tab View xaml support added.
+Added the custom header option.</PackageReleaseNotes>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+  <PackageLicenseFile>License.txt</PackageLicenseFile>
+  <PackageTags>tabview;tab;tabbedpage;Xamarin;Xam;Plugin;Xamarin.forms;Forms;</PackageTags>
   </PropertyGroup>
  <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="3.4.0.1008975" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="License.txt" Pack="true" Visible="false" PackagePath="" />
   </ItemGroup>
 </Project>
