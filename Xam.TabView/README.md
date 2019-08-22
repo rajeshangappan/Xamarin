@@ -10,4 +10,4 @@ Xam.TabView Features
   - Header Customization.
   - Add tab view to any layouts like (Stack/absolute or grid etc.)
 # Output
-[![TabView](https://github.com/rajeshangappan/Xamarin/blob/master/Xam.TabView/TabControl.gif)]
+![TabView](https://github.com/rajeshangappan/Xamarin/blob/master/Xam.TabView/TabControl.gif)
