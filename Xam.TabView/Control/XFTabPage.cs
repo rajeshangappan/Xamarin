@@ -16,6 +16,11 @@ namespace Xam.TabView
         internal ContentPage m_content;
 
         /// <summary>
+        /// Defines the m_contentPage
+        /// </summary>
+        internal ContentPage m_contentPage;
+
+        /// <summary>
         /// Defines the XFTabParent
         /// </summary>
         internal XFTabControl XFTabParent;
@@ -46,6 +51,11 @@ namespace Xam.TabView
         /// Gets or sets the Content
         /// </summary>
         public View Content { get => m_content.Content; set => m_content.Content = value; }
+
+        /// <summary>
+        /// Gets or sets the CustomContentPage
+        /// </summary>
+        public ContentPage CustomContentPage { get => m_content; set => m_content = value; }
 
         /// <summary>
         /// Gets or sets the Header

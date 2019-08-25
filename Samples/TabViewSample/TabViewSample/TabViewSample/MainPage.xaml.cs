@@ -8,6 +8,7 @@ namespace TabViewSample
         public MainPage()
         {
             InitializeComponent();
+           
             //Create the Tab from c# coding
             //testing.Children.Add(createTab());
         }
@@ -23,7 +24,6 @@ namespace TabViewSample
                 //Change the Header Position.
                 Position = Position.Top
             };
-            //Create the Tab Page
 
             XFTabPage page1 = new XFTabPage();
 
@@ -31,14 +31,17 @@ namespace TabViewSample
 
             page1.Header.Title = "Tab1";
 
-            Label content1 = new Label
+            Tab1ContentPage contentpage = new Tab1ContentPage
             {
-                Text = "This Page Displays Tab1 Content"
+                Content = new Label
+                {
+                    Text = "This Page Displays Tab1 Content"
+                }
             };
 
-            //Assign the tab body content.
+            //Assign the contentpage to first tab.
 
-            page1.Content = content1;
+            page1.CustomContentPage = contentpage;
 
             //Add the Page to tab control
 
@@ -69,7 +72,6 @@ namespace TabViewSample
             //Add the Page to tab control
 
             tab.AddPage(page2);
-
 
             tab.TabClicked += Tab_TabClicked;
 

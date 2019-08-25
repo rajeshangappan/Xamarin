@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:TabViewSample"
              xmlns:tabview="clr-namespace:Xam.TabView;assembly=Xam.TabView"
-             x:Class="TabViewSample.MainPage">
+             x:Class="TabViewSample.MainPage" Title="TabviewSample" NavigationPage.HasNavigationBar="True">
 
     <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
         <Label Text="TAB ABOVE CONTENT"></Label>
@@ -16,9 +16,9 @@
                             <tabview:XFTabHeader Title="Tab1">
                             </tabview:XFTabHeader>
                         </tabview:XFTabPage.Header>
-                        <tabview:XFTabPage.Content>
-                            <Label Text="This Page Displays Tab1 Content"></Label>
-                        </tabview:XFTabPage.Content>
+                        <tabview:XFTabPage.CustomContentPage>
+                            <local:Tab1ContentPage></local:Tab1ContentPage>
+                        </tabview:XFTabPage.CustomContentPage>
                     </tabview:XFTabPage>
                     <tabview:XFTabPage>
                         <tabview:XFTabPage.Header>
@@ -27,7 +27,11 @@
                             </tabview:XFTabHeader>
                         </tabview:XFTabPage.Header>
                         <tabview:XFTabPage.Content>
-                            <Label Text="This Page Displays Tab2 Content"></Label>
+                            <StackLayout>
+                                <Label Text="This Page Displays Tab2 Content"
+                                       VerticalOptions="CenterAndExpand" 
+                                       HorizontalOptions="CenterAndExpand" />
+                            </StackLayout>
                         </tabview:XFTabPage.Content>
                     </tabview:XFTabPage>
                 </tabview:XFTabControl.XFTabPages>
