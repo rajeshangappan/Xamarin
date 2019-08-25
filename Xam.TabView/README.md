@@ -18,7 +18,7 @@ Sample Link : [TabviewSample](https://github.com/rajeshangappan/Xamarin/tree/mas
   Label label = new Label{Text="Tab1"};
   PageHeader1.Content = label;
   //Use the Title for Default Header
-  PageHeader1.Title = "Tab1"label;
+  PageHeader1.Title = "Tab1";
 ```
 # Tabbed Page content Customization
  - Add the tabview content by using content.
