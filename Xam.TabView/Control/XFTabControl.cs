@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using Xamarin.Forms;
 
 namespace Xam.TabView
@@ -144,7 +145,10 @@ namespace Xam.TabView
         /// <param name="tabPage">The tabPage<see cref="XFTabPage"/></param>
         public void AddPage(XFTabPage tabPage)
         {
-            XFTabPages.Add(tabPage);
+            if (tabPage?.Header != null && tabPage.Header.IsVisible)
+            {
+                XFTabPages.Add(tabPage);
+            }
         }
 
         #endregion
@@ -157,15 +161,18 @@ namespace Xam.TabView
         /// <param name="tabPage">The tabPage<see cref="XFTabPage"/></param>
         private void addTabPageContent(XFTabPage tabPage)
         {
-            tabPage.XFTabParent = this;
-            tabPage.Header.BackgroundColor = HeaderColor;
-            //tabPage.Header.HeaderLabel.BackgroundColor = HeaderColor;
-            m_Header.Children.Add(tabPage.Header, m_Header.Children.Count, 0);
-            tabPage.Header.Selector = new BoxView
+            if (tabPage?.Header != null && tabPage.Header.IsVisible)
             {
-                BackgroundColor = HeaderColor
-            };
-            m_Selection.Children.Add(tabPage.Header.Selector, m_Selection.Children.Count, 0);
+                tabPage.XFTabParent = this;
+                tabPage.Header.BackgroundColor = HeaderColor;
+                tabPage.Header.HeaderLabel.BackgroundColor = HeaderColor;
+                m_Header.Children.Add(tabPage.Header, m_Header.Children.Count, 0);
+                tabPage.Header.Selector = new BoxView
+                {
+                    BackgroundColor = HeaderColor
+                };
+                m_Selection.Children.Add(tabPage.Header.Selector, m_Selection.Children.Count, 0);
+            }
         }
 
         /// <summary>
@@ -235,7 +242,9 @@ namespace Xam.TabView
         {
             TabLayout();
             Content = m_Parent;
-            SelectPage(XFTabPages[selectedIndex]);
+            var page = XFTabPages.FirstOrDefault(x => x.Header != null && x.Header.IsVisible);
+            selectedIndex = XFTabPages.IndexOf(page);
+            SelectPage(page);
             SetHeaderColor();
         }
 
@@ -245,17 +254,21 @@ namespace Xam.TabView
         /// <param name="page">The page<see cref="XFTabPage"/></param>
         internal void SelectPage(XFTabPage page)
         {
-            if (SelectedPage != null)
+            if (page?.Header != null && page.Header.IsVisible)
             {
-                SelectedPage.Header.Selector.BackgroundColor = HeaderColor;
-                SelectedPage.Header.Opacity = 0.8;
-            }
-            page.Header.Selector.BackgroundColor = SelectionColor;
-            page.Header.Opacity = 1;
+                if (SelectedPage != null)
+                {
+                    SelectedPage.Header.Selector.BackgroundColor = HeaderColor;
+                    SelectedPage.Header.Opacity = 0.8;
+                }
 
-            SelectedPage = page;
-            XFTabBody.Children.Clear();
-            XFTabBody.Children.Add(page.Content);
+                page.Header.Selector.BackgroundColor = SelectionColor;
+                page.Header.Opacity = 1;
+
+                SelectedPage = page;
+                XFTabBody.Children.Clear();
+                XFTabBody.Children.Add(page.Content);
+            }
         }
 
         /// <summary>
