@@ -106,6 +106,11 @@ namespace Xam.TabView
         public int HeaderHeight { get; set; } = 30;
 
         /// <summary>
+        /// Gets or sets the HeaderHeight
+        /// </summary>
+        public int HeaderSelectionHeight { get; set; } = 8;
+
+        /// <summary>
         /// Gets or sets the HeaderTextColor
         /// </summary>
         public Color HeaderTextColor { get; set; }
@@ -165,7 +170,11 @@ namespace Xam.TabView
             {
                 tabPage.XFTabParent = this;
                 tabPage.Header.BackgroundColor = HeaderColor;
-                tabPage.Header.HeaderLabel.BackgroundColor = HeaderColor;
+                if (tabPage.Header.HeaderLabel != null)
+                {
+                    tabPage.Header.HeaderLabel.BackgroundColor = HeaderColor;
+                }
+
                 m_Header.Children.Add(tabPage.Header, m_Header.Children.Count, 0);
                 tabPage.Header.Selector = new BoxView
                 {
@@ -196,7 +205,7 @@ namespace Xam.TabView
                 m_Parent.RowDefinitions = new RowDefinitionCollection
                 {
                 new RowDefinition { Height = new GridLength(HeaderHeight, GridUnitType.Absolute) },
-                new RowDefinition { Height = new GridLength(8, GridUnitType.Absolute) },
+                new RowDefinition { Height = new GridLength(HeaderSelectionHeight, GridUnitType.Absolute) },
                 new RowDefinition { Height = GridLength.Star}
                 };
                 m_Parent.Children.Add(m_Header, 0, 0);

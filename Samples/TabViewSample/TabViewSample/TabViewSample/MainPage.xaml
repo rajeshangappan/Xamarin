@@ -1,36 +1,43 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:TabViewSample"
-             xmlns:tabview="clr-namespace:Xam.TabView;assembly=Xam.TabView"
-             x:Class="TabViewSample.MainPage" Title="TabviewSample" NavigationPage.HasNavigationBar="True">
+<ContentPage
+    x:Class="TabViewSample.MainPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:TabViewSample"
+    xmlns:tabview="clr-namespace:Xam.TabView;assembly=Xam.TabView"
+    Title="TabviewSample"
+    NavigationPage.HasNavigationBar="True">
 
-    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
-        <Label Text="TAB ABOVE CONTENT"></Label>
+    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <Label Text="TAB ABOVE CONTENT" />
 
         <StackLayout x:Name="testing" VerticalOptions="FillAndExpand">
-            <tabview:XFTabControl VerticalOptions="FillAndExpand" TabClicked="Tab_TabClicked" HeaderColor="Gray">
+            <tabview:XFTabControl
+                HeaderColor="Gray"
+                HeaderSelectionHeight="3"
+                TabClicked="Tab_TabClicked"
+                VerticalOptions="FillAndExpand">
                 <tabview:XFTabControl.XFTabPages>
                     <tabview:XFTabPage>
                         <tabview:XFTabPage.Header>
-                            <tabview:XFTabHeader Title="Tab1">
-                            </tabview:XFTabHeader>
+                            <tabview:XFTabHeader Title="Tab1" />
                         </tabview:XFTabPage.Header>
                         <tabview:XFTabPage.CustomContentPage>
-                            <local:Tab1ContentPage></local:Tab1ContentPage>
+                            <local:Tab1ContentPage />
                         </tabview:XFTabPage.CustomContentPage>
                     </tabview:XFTabPage>
                     <tabview:XFTabPage>
                         <tabview:XFTabPage.Header>
-                            <tabview:XFTabHeader>
-                                <Label Text="Tab2"></Label>
+                            <tabview:XFTabHeader IsVisible="False">
+                                <Label Text="Tab2" />
                             </tabview:XFTabHeader>
                         </tabview:XFTabPage.Header>
                         <tabview:XFTabPage.Content>
                             <StackLayout>
-                                <Label Text="This Page Displays Tab2 Content"
-                                       VerticalOptions="CenterAndExpand" 
-                                       HorizontalOptions="CenterAndExpand" />
+                                <Label
+                                    HorizontalOptions="CenterAndExpand"
+                                    Text="This Page Displays Tab2 Content"
+                                    VerticalOptions="CenterAndExpand" />
                             </StackLayout>
                         </tabview:XFTabPage.Content>
                     </tabview:XFTabPage>
