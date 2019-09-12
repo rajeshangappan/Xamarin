@@ -3,6 +3,7 @@
     x:Class="TabViewSample.MainPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:control="clr-namespace:Xam.TabView.Control;assembly=Xam.TabView"
     xmlns:local="clr-namespace:TabViewSample"
     xmlns:tabview="clr-namespace:Xam.TabView;assembly=Xam.TabView"
     Title="TabviewSample"
@@ -12,12 +13,12 @@
         <Label Text="TAB ABOVE CONTENT" />
 
         <StackLayout x:Name="testing" VerticalOptions="FillAndExpand">
-            <tabview:XFTabControl
+            <control:XFTabControl
                 HeaderColor="Gray"
                 HeaderSelectionHeight="3"
                 TabClicked="Tab_TabClicked"
                 VerticalOptions="FillAndExpand">
-                <tabview:XFTabControl.XFTabPages>
+                <control:XFTabControl.XFTabPages>
                     <tabview:XFTabPage>
                         <tabview:XFTabPage.Header>
                             <tabview:XFTabHeader Title="Tab1" />
@@ -41,8 +42,8 @@
                             </StackLayout>
                         </tabview:XFTabPage.Content>
                     </tabview:XFTabPage>
-                </tabview:XFTabControl.XFTabPages>
-            </tabview:XFTabControl>
+                </control:XFTabControl.XFTabPages>
+            </control:XFTabControl>
         </StackLayout>
     </StackLayout>
 

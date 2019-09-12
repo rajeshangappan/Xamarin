@@ -2,7 +2,7 @@
 using System.Linq;
 using Xamarin.Forms;
 
-namespace Xam.TabView
+namespace Xam.TabView.Control
 {
     #region Delegates
 
@@ -66,7 +66,9 @@ namespace Xam.TabView
         /// </summary>
         public XFTabControl()
         {
+            SelectedIndex = SelectedIndex - 1;
             Padding = 0;
+            CornerRadius = 0;
             Margin = 0;
             init();
             XFTabPages = new ObservableCollection<XFTabPage>();
@@ -121,9 +123,9 @@ namespace Xam.TabView
         public Position Position { get; set; }
 
         /// <summary>
-        /// Gets or sets the selectedIndex
+        /// Gets or sets the SelectedIndex
         /// </summary>
-        public int selectedIndex { get; set; } = 0;
+        public int SelectedIndex { get; set; } = -1;
 
         /// <summary>
         /// Gets or sets the SelectionColor
@@ -251,9 +253,11 @@ namespace Xam.TabView
         {
             TabLayout();
             Content = m_Parent;
-            var page = XFTabPages.FirstOrDefault(x => x.Header != null && x.Header.IsVisible);
-            selectedIndex = XFTabPages.IndexOf(page);
-            SelectPage(page);
+            SelectedIndex = SelectedIndex - 1;
+            XFTabPage tabPage = SelectedIndex >= 0
+                ? XFTabPages[SelectedIndex]
+                : XFTabPages.FirstOrDefault(x => x.Header != null && x.Header.IsVisible);
+            SelectPage(tabPage);
             SetHeaderColor();
         }
 
@@ -265,6 +269,8 @@ namespace Xam.TabView
         {
             if (page?.Header != null && page.Header.IsVisible)
             {
+                SelectedIndex = XFTabPages.IndexOf(page);
+
                 if (SelectedPage != null)
                 {
                     SelectedPage.Header.Selector.BackgroundColor = HeaderColor;

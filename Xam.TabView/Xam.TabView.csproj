@@ -3,9 +3,9 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Company>NVTech</Company>
-    <Authors>RajeshAngappan</Authors>
+    <Authors>Rajesh Angappan</Authors>
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/rajeshangappan/Xamarin/tree/master/Xam.TabView</PackageProjectUrl>
     <PackageReleaseNotes>Content page support added to Tab views.</PackageReleaseNotes>
@@ -14,10 +14,11 @@
   <PackageTags>Xamarin;Xam;Plugin;Xamarin.forms;Forms;tabview;tab;tabbedpage;</PackageTags>
   <Description>Xamarin Forms Tabbed page or view.
 Xam.TabView Features
-- Tab Header Customization (Header Height/Color/Content).
+- Tab Header Customization (Header Height/Header Selection Height/Color/Content).
 - Tab Contet Page/View customization.
 - Tab Header Positioning (Top/Bottom)
-- Tab Page/Content change events.</Description>
+- Tab Page/Content change events.
+- Tab Visualization</Description>
   <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
 
