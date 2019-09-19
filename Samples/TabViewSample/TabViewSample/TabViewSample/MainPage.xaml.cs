@@ -1,4 +1,5 @@
 ﻿using Xam.TabView;
+using Xam.TabView.Control;
 using Xamarin.Forms;
 
 namespace TabViewSample
@@ -8,7 +9,7 @@ namespace TabViewSample
         public MainPage()
         {
             InitializeComponent();
-           
+
             //Create the Tab from c# coding
             //testing.Children.Add(createTab());
         }
@@ -30,6 +31,8 @@ namespace TabViewSample
             //Create the Header title
 
             page1.Header.Title = "Tab1";
+
+
 
             Tab1ContentPage contentpage = new Tab1ContentPage
             {
@@ -80,6 +83,12 @@ namespace TabViewSample
         private void Tab_TabClicked(object sender, OnTabClickedEventArgs args)
         {
             //return the tab page. We can change that tab content here also.
+        }
+
+        private void Button_Clicked(object sender, System.EventArgs e)
+        {
+            var control = Tabcomponent;
+            control.SelectedIndex = (control.SelectedIndex + 1) % 3;
         }
     }
 }

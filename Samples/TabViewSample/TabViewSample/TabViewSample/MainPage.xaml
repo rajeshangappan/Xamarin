@@ -1,16 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:control="clr-namespace:Xam.TabView.Control;assembly=Xam.TabView"
              xmlns:local="clr-namespace:TabViewSample"
              xmlns:tabview="clr-namespace:Xam.TabView;assembly=Xam.TabView"
              x:Class="TabViewSample.MainPage" Title="TabviewSample" NavigationPage.HasNavigationBar="True">
 
     <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
         <Label Text="TAB ABOVE CONTENT"></Label>
-
+        <Button Text="Select Next Tab" Clicked="Button_Clicked"></Button>
         <StackLayout x:Name="testing" VerticalOptions="FillAndExpand">
-            <tabview:XFTabControl VerticalOptions="FillAndExpand" TabClicked="Tab_TabClicked" HeaderColor="Gray">
-                <tabview:XFTabControl.XFTabPages>
+            <control:XFTabControl x:Name="Tabcomponent" VerticalOptions="FillAndExpand" TabClicked="Tab_TabClicked" HeaderColor="Gray" SelectedIndex="1">
+                <control:XFTabControl.XFTabPages>
                     <tabview:XFTabPage>
                         <tabview:XFTabPage.Header>
                             <tabview:XFTabHeader Title="Tab1">
@@ -22,7 +23,7 @@
                     </tabview:XFTabPage>
                     <tabview:XFTabPage>
                         <tabview:XFTabPage.Header>
-                            <tabview:XFTabHeader>
+                            <tabview:XFTabHeader IsVisible="False">
                                 <Label Text="Tab2"></Label>
                             </tabview:XFTabHeader>
                         </tabview:XFTabPage.Header>
@@ -34,8 +35,36 @@
                             </StackLayout>
                         </tabview:XFTabPage.Content>
                     </tabview:XFTabPage>
-                </tabview:XFTabControl.XFTabPages>
-            </tabview:XFTabControl>
+                    <tabview:XFTabPage>
+                        <tabview:XFTabPage.Header>
+                            <tabview:XFTabHeader>
+                                <Label Text="Tab3"></Label>
+                            </tabview:XFTabHeader>
+                        </tabview:XFTabPage.Header>
+                        <tabview:XFTabPage.Content>
+                            <StackLayout>
+                                <Label Text="This Page Displays Tab3 Content"
+                                       VerticalOptions="CenterAndExpand" 
+                                       HorizontalOptions="CenterAndExpand" />
+                            </StackLayout>
+                        </tabview:XFTabPage.Content>
+                    </tabview:XFTabPage>
+                    <tabview:XFTabPage>
+                        <tabview:XFTabPage.Header>
+                            <tabview:XFTabHeader>
+                                <Label Text="Tab4"></Label>
+                            </tabview:XFTabHeader>
+                        </tabview:XFTabPage.Header>
+                        <tabview:XFTabPage.Content>
+                            <StackLayout>
+                                <Label Text="This Page Displays Tab4 Content"
+                                       VerticalOptions="CenterAndExpand" 
+                                       HorizontalOptions="CenterAndExpand" />
+                            </StackLayout>
+                        </tabview:XFTabPage.Content>
+                    </tabview:XFTabPage>
+                </control:XFTabControl.XFTabPages>
+            </control:XFTabControl>
         </StackLayout>
     </StackLayout>
 

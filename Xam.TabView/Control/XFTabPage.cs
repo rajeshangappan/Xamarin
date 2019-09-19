@@ -1,4 +1,5 @@
 ﻿using System;
+using Xam.TabView.Control;
 using Xamarin.Forms;
 
 namespace Xam.TabView
@@ -86,7 +87,7 @@ namespace Xam.TabView
                 SelectedIndex = XFTabParent.XFTabPages.IndexOf(this)
             };
             XFTabParent.OnTabClicked(args);
-            XFTabParent.SelectPage(this);
+            XFTabParent.SelectTabPage(this);
         }
 
         #endregion

@@ -3,12 +3,13 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Company>NVTech</Company>
-    <Authors>RajeshAngappan</Authors>
+    <Authors>Rajesh Angappan</Authors>
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/rajeshangappan/Xamarin/tree/master/Xam.TabView</PackageProjectUrl>
-    <PackageReleaseNotes>Content page support added to Tab views.</PackageReleaseNotes>
+    <PackageReleaseNotes>Header visible support added.
+Select tab page using XFPage or Index.</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   <PackageLicenseFile>License.txt</PackageLicenseFile>
   <PackageTags>Xamarin;Xam;Plugin;Xamarin.forms;Forms;tabview;tab;tabbedpage;</PackageTags>

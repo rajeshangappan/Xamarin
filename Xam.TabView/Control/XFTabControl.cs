@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using Xamarin.Forms;
 
-namespace Xam.TabView
+namespace Xam.TabView.Control
 {
     #region Delegates
 
@@ -19,12 +19,7 @@ namespace Xam.TabView
     /// </summary>
     public class XFTabControl : Frame
     {
-        #region Fields
-
-        /// <summary>
-        /// Defines the m_tabBodyColor
-        /// </summary>
-        private readonly Color m_tabBodyColor;
+        #region PRIVATE_VARIABLES
 
         /// <summary>
         /// Defines the TabbedPagesProperty
@@ -52,38 +47,23 @@ namespace Xam.TabView
         private Color m_headerColor;
 
         /// <summary>
+        /// Defines the m_selectedIndex
+        /// </summary>
+        private int m_selectedIndex = 0;
+
+        /// <summary>
         /// Defines the m_Selection
         /// </summary>
         private Grid m_Selection;
 
-        #endregion
-
-        #region Constructors
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="XFTabControl"/> class.
+        /// Gets or sets the XFTabBody
         /// </summary>
-        public XFTabControl()
-        {
-            Padding = 0;
-            Margin = 0;
-            init();
-            XFTabPages = new ObservableCollection<XFTabPage>();
-            XFTabPages.CollectionChanged += XFTabPages_CollectionChanged;
-        }
+        internal Grid XFTabBody { get; set; }
 
         #endregion
 
-        #region Events
-
-        /// <summary>
-        /// Defines the TabClicked
-        /// </summary>
-        public event OnTabClickEventHandler TabClicked;
-
-        #endregion
-
-        #region Properties
+        #region PUBLIC_PPTY
 
         /// <summary>
         /// Gets or sets the HeaderColor
@@ -115,9 +95,17 @@ namespace Xam.TabView
         public Position Position { get; set; }
 
         /// <summary>
-        /// Gets or sets the selectedIndex
+        /// Gets or sets the SelectedIndex
         /// </summary>
-        public int selectedIndex { get; set; } = 0;
+        public int SelectedIndex
+        {
+            get => m_selectedIndex;
+            set
+            {
+                m_selectedIndex = value;
+                SelectTabPage(m_selectedIndex);
+            }
+        }
 
         /// <summary>
         /// Gets or sets the SelectionColor
@@ -125,27 +113,39 @@ namespace Xam.TabView
         public Color SelectionColor { get; set; } = Color.FromRgb(102, 153, 255);
 
         /// <summary>
+        /// Gets or sets the SelectorHeight
+        /// </summary>
+        public int SelectorHeight { get; set; } = 8;
+
+        /// <summary>
         /// Gets or sets the XFTabPages
         /// </summary>
         public ObservableCollection<XFTabPage> XFTabPages { get => (ObservableCollection<XFTabPage>)GetValue(TabbedPagesProperty); set => SetValue(TabbedPagesProperty, value); }
 
+        #endregion
+
+        #region CONSTRUCTOR
+
         /// <summary>
-        /// Gets or sets the XFTabBody
+        /// Initializes a new instance of the <see cref="XFTabControl"/> class.
         /// </summary>
-        internal Grid XFTabBody { get; set; }
+        public XFTabControl()
+        {
+            Padding = 0;
+            Margin = 0;
+            init();
+            XFTabPages = new ObservableCollection<XFTabPage>();
+            XFTabPages.CollectionChanged += XFTabPages_CollectionChanged;
+        }
 
         #endregion
 
-        #region PUBLIC_METHODS
+        #region Events
 
         /// <summary>
-        /// The AddPage
+        /// Defines the TabClicked
         /// </summary>
-        /// <param name="tabPage">The tabPage<see cref="XFTabPage"/></param>
-        public void AddPage(XFTabPage tabPage)
-        {
-            XFTabPages.Add(tabPage);
-        }
+        public event OnTabClickEventHandler TabClicked;
 
         #endregion
 
@@ -158,14 +158,17 @@ namespace Xam.TabView
         private void addTabPageContent(XFTabPage tabPage)
         {
             tabPage.XFTabParent = this;
+            tabPage.Header.XFParentTabPage = tabPage;
             tabPage.Header.BackgroundColor = HeaderColor;
-            //tabPage.Header.HeaderLabel.BackgroundColor = HeaderColor;
-            m_Header.Children.Add(tabPage.Header, m_Header.Children.Count, 0);
             tabPage.Header.Selector = new BoxView
             {
                 BackgroundColor = HeaderColor
             };
-            m_Selection.Children.Add(tabPage.Header.Selector, m_Selection.Children.Count, 0);
+            if (tabPage.Header.IsVisible)
+            {
+                m_Header.Children.Add(tabPage.Header, m_Header.Children.Count, 0);
+                m_Selection.Children.Add(tabPage.Header.Selector, m_Selection.Children.Count, 0);
+            }
         }
 
         /// <summary>
@@ -228,22 +231,35 @@ namespace Xam.TabView
 
         #endregion
 
+        #region PUBLIC_METHODS
+
         /// <summary>
-        /// The OnParentSet
+        /// The AddPage
         /// </summary>
-        protected override void OnParentSet()
+        /// <param name="tabPage">The tabPage<see cref="XFTabPage"/></param>
+        public void AddPage(XFTabPage tabPage)
         {
-            TabLayout();
-            Content = m_Parent;
-            SelectPage(XFTabPages[selectedIndex]);
-            SetHeaderColor();
+            XFTabPages.Add(tabPage);
         }
 
         /// <summary>
         /// The SelectPage
         /// </summary>
+        /// <param name="index">The index<see cref="int"/></param>
+        public void SelectTabPage(int index)
+        {
+            if (index > -1 && m_Header.Children.Count > index)
+            {
+                var page = (m_Header.Children[index] as XFTabHeader).XFParentTabPage;
+                SelectTabPage(page);
+            }
+        }
+
+        /// <summary>
+        /// The SelectTabPage
+        /// </summary>
         /// <param name="page">The page<see cref="XFTabPage"/></param>
-        internal void SelectPage(XFTabPage page)
+        public void SelectTabPage(XFTabPage page)
         {
             if (SelectedPage != null)
             {
@@ -252,10 +268,22 @@ namespace Xam.TabView
             }
             page.Header.Selector.BackgroundColor = SelectionColor;
             page.Header.Opacity = 1;
-
             SelectedPage = page;
             XFTabBody.Children.Clear();
             XFTabBody.Children.Add(page.Content);
+        }
+
+        #endregion
+
+        /// <summary>
+        /// The OnParentSet
+        /// </summary>
+        protected override void OnParentSet()
+        {
+            TabLayout();
+            Content = m_Parent;
+            SelectTabPage(SelectedIndex);
+            SetHeaderColor();
         }
 
         /// <summary>
@@ -278,10 +306,7 @@ namespace Xam.TabView
         /// <param name="e">The e<see cref="OnTabClickedEventArgs"/></param>
         internal void OnTabClicked(OnTabClickedEventArgs e)
         {
-            if (TabClicked != null)
-            {
-                TabClicked(this, e);
-            }
+            TabClicked?.Invoke(this, e);
         }
     }
 }

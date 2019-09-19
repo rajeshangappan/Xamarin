@@ -14,6 +14,11 @@ namespace Xam.TabView
         /// </summary>
         internal BoxView Selector;
 
+		/// <summary>
+        /// Header Tab Page
+        /// </summary>
+        internal XFTabPage XFParentTabPage;
+
         #endregion
 
         #region Constructors
