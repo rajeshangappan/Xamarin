@@ -5,13 +5,14 @@ This Package support in Xamarin.Forms
      
      Create the Customized tabbed page or view using Xam.Tabview control.
 Xam.TabView Features
-- Tab Header Customization (Tab Header Height/Color/Content).
+- Tabbed Page and Header Customization. (Tab Header Height/Color/Content).
 - Tab contet Page customization.
 - Tab Header Positioning (Top/Bottom)
 - Tab page/content change events.
+- Add tab view to any layouts like (Stack/absolute or grid etc.)
 # New Features!
-  - Tabbed Page and Header Customization.
-  - Add tab view to any layouts like (Stack/absolute or grid etc.)
+  - IsVisble Support added for TabHeader.
+  - SelectIndex Support added.
 # Tabbed Header Customization Sample Code
  - Add the header using title property.
  - Add the Header using Header Content property.
