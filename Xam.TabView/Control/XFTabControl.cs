@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+using System;
+using System.Collections.ObjectModel;
 using Xamarin.Forms;
 
 namespace Xam.TabView.Control
@@ -35,6 +36,11 @@ namespace Xam.TabView.Control
         /// Defines the SelectedPage
         /// </summary>
         internal XFTabPage SelectedPage;
+
+        /// <summary>
+        /// Swipe start and end position
+        /// </summary>
+        private double _SwipeStartX = 0, _SwipeStartY = 0;
 
         /// <summary>
         /// Defines the m_Header
@@ -180,6 +186,9 @@ namespace Xam.TabView.Control
             XFTabBody = new Grid { RowSpacing = 0, ColumnSpacing = 0 };
             m_Header = new Grid { RowSpacing = 0, ColumnSpacing = 0 };
             m_Selection = new Grid { RowSpacing = 0, ColumnSpacing = 0 };
+            var panGesture = new PanGestureRecognizer();
+            XFTabBody.GestureRecognizers.Add(panGesture);
+            panGesture.PanUpdated += panGesture_PanUpdated;
         }
 
         /// <summary>
@@ -210,6 +219,38 @@ namespace Xam.TabView.Control
                 m_Parent.Children.Add(XFTabBody, 0, 0);
                 m_Parent.Children.Add(m_Selection, 0, 1);
                 m_Parent.Children.Add(m_Header, 0, 2);
+            }
+        }
+
+        /// <summary>
+        /// The Tt_PanUpdated
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/></param>
+        /// <param name="e">The e<see cref="PanUpdatedEventArgs"/></param>
+        private void panGesture_PanUpdated(object sender, PanUpdatedEventArgs e)
+        {
+            switch (e.StatusType)
+            {
+                case GestureStatus.Running:
+                    _SwipeStartX = e.TotalX;
+                    _SwipeStartY = e.TotalY;
+                    break;
+                case GestureStatus.Completed:
+                    var xdiff = _SwipeStartX;
+                    var ydiff = _SwipeStartY;
+
+                    if (Math.Abs(xdiff) > Math.Abs(ydiff))
+                    {
+                        if (xdiff < 0 && (SelectedIndex + 1) < m_Header.Children.Count)
+                        {
+                            SelectedIndex = SelectedIndex + 1;
+                        }
+                        else if (xdiff > 0 && (SelectedIndex - 1) > -1)
+                        {
+                            SelectedIndex = SelectedIndex - 1;
+                        }
+                    }
+                    break;
             }
         }
 
