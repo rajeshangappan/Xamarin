@@ -32,9 +32,9 @@ UI Screens:
 Offline Sync: (Background Sync.cs will take care)
 
 - For Offline we majorly used the below columns in SQLite
-  - **Version** – Using this, we will sync the data and override the new data to both offline and online.
-  - **UpdatatedAt** – Using this column we will override the latest data to both offline and online
-  - **IsDeleted** (soft delete)– Using this column will manage the deleted data in both offline and online.
+  - **Version** â€“ Using this, we will sync the data and override the new data to both offline and online.
+  - **UpdatatedAt** â€“ Using this column we will override the latest data to both offline and online
+  - **IsDeleted** (soft delete)â€“ Using this column will manage the deleted data in both offline and online.
 
 - We should remove the &quot;isdeleted = true&quot; columns frequently depends on the customer requirement.
 
@@ -48,9 +48,9 @@ IOC Container:
 
 - Created the Web API by .Net core.
 - Here we majorly have below controllers
-  - Login Controller – Manage the Login mechanism
-  - Product Controller – Manage the product like Add, delete, update
-  - SyncController – Sync the offline data to online and vice versa.
+  - Login Controller â€“ Manage the Login mechanism
+  - Product Controller â€“ Manage the product like Add, delete, update
+  - SyncController â€“ Sync the offline data to online and vice versa.
 - Added the authorization filter to validate the user and user roles.
 
 BackEnd:
@@ -62,4 +62,4 @@ Output:
 
 # Output
 
-![Store App](https://github.com/rajeshangappan/Xamarin/blob/master/ Samples/ABB Sample/Store.gif)
+![Store App](https://github.com/rajeshangappan/Xamarin/blob/master/Samples/ABB%20Sample/Store.gif.gif)
