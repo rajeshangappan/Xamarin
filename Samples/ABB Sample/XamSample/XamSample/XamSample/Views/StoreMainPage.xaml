@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:EventToCommandBehavior"
+             x:Class="XamSample.Views.StoreMainPage" Title="Store Management" NavigationPage.HasBackButton="False" >
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem  Icon="logout.png" Command="{Binding LogoutCommand}"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid x:Name="mainGrid" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Frame Grid.Column="0" BackgroundColor="Blue" HeightRequest="100" Margin="10,10,10,10">
+                    <Label Text="Product Details" TextColor="White" FontSize="20"></Label>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ProductClickCommand}"></TapGestureRecognizer>
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <Frame Grid.Column="1" IsVisible="{Binding IsAdmin}" BackgroundColor="Blue" HeightRequest="100" Margin="10,10,10,10">
+                    <Label Text="Staff Management" TextColor="White" FontSize="20"></Label>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding StaffClickCommand}"></TapGestureRecognizer>
+                    </Frame.GestureRecognizers>
+                </Frame>
+            </Grid>
+        </Grid>       
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:Resx="clr-namespace:XamSample.Resources"
+             x:Class="XamSample.Views.ProductDetailsPage" Title="Product Details">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="Entry_Style" TargetType="Entry">
+                <Setter Property="FontFamily" Value="Roboto" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="TextColor" Value="#333333" />
+                <Setter Property="Margin" Value="10,0" />
+                <Setter Property="Margin" Value="5,0,0,-2"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <!--BODY-->
+            <FlexLayout Direction="Column" FlexLayout.Grow="1">
+                <StackLayout>
+                    <Label Text="{x:Static Resx:AppResources.ProductName}"></Label>
+                    <Entry Text="{Binding Product.ProdName}" IsEnabled="{Binding IsAdmin}"
+                                               Style="{StaticResource Entry_Style}" />
+                </StackLayout>
+                <StackLayout>
+                    <Label Text="{x:Static Resx:AppResources.Cost}"></Label>
+                    <Entry Text="{Binding Product.Cost}" IsEnabled="{Binding IsAdmin}"
+                                               Style="{StaticResource Entry_Style}" Keyboard="Numeric" />
+                </StackLayout>
+                <StackLayout>
+                    <Label Text="{x:Static Resx:AppResources.AvailableQTY}"></Label>
+                    <Entry Text="{Binding Product.AvailableQty}" 
+                                               Style="{StaticResource Entry_Style}" Keyboard="Numeric" />
+                </StackLayout>
+                <StackLayout>
+                    <Label Text="{x:Static Resx:AppResources.MaxQty}"></Label>
+                    <Entry Text="{Binding Product.MaxLimit}" IsEnabled="{Binding IsAdmin}"
+                                               Style="{StaticResource Entry_Style}" Keyboard="Numeric"/>
+                </StackLayout>
+                <Button Text="Save Changes" Command="{Binding SaveChangesCommand}"></Button>
+                <Button Text="Delete Product" Command="{Binding DeleteCommand}" IsEnabled="{Binding EnableDelete}"></Button>
+            </FlexLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

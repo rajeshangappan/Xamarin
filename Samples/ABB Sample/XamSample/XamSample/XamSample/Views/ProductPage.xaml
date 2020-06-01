@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:EventToCommandBehavior"
+             x:Class="XamSample.Views.ProductPage" Title="Product">
+    <ContentPage.Content>
+        <Grid>
+            <FlexLayout Direction="Column">
+                <Grid FlexLayout.Grow="1" RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <ListView Grid.Row="0" x:Name="list" ItemsSource="{Binding ProductList}" SelectedItem="{Binding SelectedProduct}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextCell Text="{Binding ProdName}">
+                                </TextCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.Behaviors>
+                            <local:EventToCommandBehavior EventName="ItemSelected" Command="{Binding ItemSelectedCommand}" />
+                        </ListView.Behaviors>
+                    </ListView>
+                    <Button Text="Add Product" Grid.Row="1" Command="{Binding AddProductCommand}" IsVisible="{Binding IsAdmin}" HeightRequest="60"></Button>
+                </Grid>
+            </FlexLayout>
+        </Grid>
+    </ContentPage.Content>
+    <ContentPage.Behaviors>
+        <local:EventToCommandBehavior EventName="Appearing" Command="{Binding OnAppearingCommand}" />
+    </ContentPage.Behaviors>
+</ContentPage>
+    
