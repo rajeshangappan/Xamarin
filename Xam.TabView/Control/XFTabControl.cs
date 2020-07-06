@@ -16,54 +16,54 @@ namespace Xam.TabView.Control
     #endregion
 
     /// <summary>
-    /// Defines the <see cref="XFTabControl" />
+    /// Defines the <see cref="XFTabControl" />.
     /// </summary>
     public class XFTabControl : Frame
     {
         #region PRIVATE_VARIABLES
 
         /// <summary>
-        /// Defines the TabbedPagesProperty
+        /// Defines the SelectedIndexProperty.
+        /// </summary>
+        public static readonly BindableProperty SelectedIndexProperty = BindableProperty.Create(nameof(SelectedIndex), typeof(int), typeof(XFTabControl), 0, BindingMode.TwoWay, propertyChanged: IndexChanged);
+
+        /// <summary>
+        /// Defines the TabbedPagesProperty.
         /// </summary>
         public static BindableProperty TabbedPagesProperty = BindableProperty.Create(nameof(XFTabPages), typeof(ObservableCollection<XFTabPage>), typeof(XFTabControl), null, BindingMode.TwoWay);
 
         /// <summary>
-        /// Defines the m_Parent
+        /// Defines the m_Parent.
         /// </summary>
         internal Grid m_Parent;
 
         /// <summary>
-        /// Defines the SelectedPage
+        /// Defines the SelectedPage.
         /// </summary>
         internal XFTabPage SelectedPage;
 
         /// <summary>
-        /// Swipe start and end position
+        /// Swipe start and end position..
         /// </summary>
         private double _SwipeStartX = 0, _SwipeStartY = 0;
 
         /// <summary>
-        /// Defines the m_Header
+        /// Defines the m_Header.
         /// </summary>
         private Grid m_Header;
 
         /// <summary>
-        /// Defines the m_headerColor
+        /// Defines the m_headerColor.
         /// </summary>
         private Color m_headerColor;
 
         /// <summary>
-        /// Defines the m_selectedIndex
-        /// </summary>
-        private int m_selectedIndex = 0;
-
-        /// <summary>
-        /// Defines the m_Selection
+        /// Defines the m_Selection.
         /// </summary>
         private Grid m_Selection;
 
         /// <summary>
-        /// Gets or sets the XFTabBody
+        /// Gets or sets the XFTabBody.
         /// </summary>
         internal Grid XFTabBody { get; set; }
 
@@ -72,7 +72,7 @@ namespace Xam.TabView.Control
         #region PUBLIC_PPTY
 
         /// <summary>
-        /// Gets or sets the HeaderColor
+        /// Gets or sets the HeaderColor.
         /// </summary>
         public Color HeaderColor
         {
@@ -86,45 +86,37 @@ namespace Xam.TabView.Control
         }
 
         /// <summary>
-        /// Gets or sets the HeaderHeight
+        /// Gets or sets the HeaderHeight.
         /// </summary>
         public int HeaderHeight { get; set; } = 30;
 
         /// <summary>
-        /// Gets or sets the HeaderTextColor
+        /// Gets or sets the HeaderTextColor.
         /// </summary>
         public Color HeaderTextColor { get; set; }
 
         /// <summary>
-        /// Gets or sets the Position
+        /// Gets or sets the Position.
         /// </summary>
         public Position Position { get; set; }
 
         /// <summary>
-        /// Gets or sets the SelectedIndex
+        /// Gets or sets the SelectedIndex.
         /// </summary>
-        public int SelectedIndex
-        {
-            get => m_selectedIndex;
-            set
-            {
-                m_selectedIndex = value;
-                SelectTabPage(m_selectedIndex);
-            }
-        }
+        public int SelectedIndex { get => (int)GetValue(SelectedIndexProperty); set => SetValue(SelectedIndexProperty, value); }
 
         /// <summary>
-        /// Gets or sets the SelectionColor
+        /// Gets or sets the SelectionColor.
         /// </summary>
         public Color SelectionColor { get; set; } = Color.FromRgb(102, 153, 255);
 
         /// <summary>
-        /// Gets or sets the SelectorHeight
+        /// Gets or sets the SelectorHeight.
         /// </summary>
         public int SelectorHeight { get; set; } = 8;
 
         /// <summary>
-        /// Gets or sets the XFTabPages
+        /// Gets or sets the XFTabPages.
         /// </summary>
         public ObservableCollection<XFTabPage> XFTabPages { get => (ObservableCollection<XFTabPage>)GetValue(TabbedPagesProperty); set => SetValue(TabbedPagesProperty, value); }
 
@@ -149,7 +141,7 @@ namespace Xam.TabView.Control
         #region Events
 
         /// <summary>
-        /// Defines the TabClicked
+        /// Defines the TabClicked.
         /// </summary>
         public event OnTabClickEventHandler TabClicked;
 
@@ -158,9 +150,9 @@ namespace Xam.TabView.Control
         #region PRIVATE_METHODS
 
         /// <summary>
-        /// The addTabPageContent
+        /// The addTabPageContent.
         /// </summary>
-        /// <param name="tabPage">The tabPage<see cref="XFTabPage"/></param>
+        /// <param name="tabPage">The tabPage<see cref="XFTabPage"/>.</param>
         private void addTabPageContent(XFTabPage tabPage)
         {
             tabPage.XFTabParent = this;
@@ -178,7 +170,19 @@ namespace Xam.TabView.Control
         }
 
         /// <summary>
-        /// The init
+        /// The index changed.
+        /// </summary>
+        /// <param name="bindable">The bindable<see cref="BindableObject"/>.</param>
+        /// <param name="oldValue">The oldValue<see cref="object"/>.</param>
+        /// <param name="newValue">The newValue<see cref="object"/>.</param>
+        private static void IndexChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var control = (XFTabControl)bindable;
+            control.SelectTabPage((int)newValue);
+        }
+
+        /// <summary>
+        /// The init.
         /// </summary>
         private void init()
         {
@@ -186,13 +190,42 @@ namespace Xam.TabView.Control
             XFTabBody = new Grid { RowSpacing = 0, ColumnSpacing = 0 };
             m_Header = new Grid { RowSpacing = 0, ColumnSpacing = 0 };
             m_Selection = new Grid { RowSpacing = 0, ColumnSpacing = 0 };
-            var panGesture = new PanGestureRecognizer();
-            XFTabBody.GestureRecognizers.Add(panGesture);
-            panGesture.PanUpdated += panGesture_PanUpdated;
         }
 
         /// <summary>
-        /// The TabLayout
+        /// The Tt_PanUpdated.
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/>.</param>
+        /// <param name="e">The e<see cref="PanUpdatedEventArgs"/>.</param>
+        private void panGesture_PanUpdated(object sender, PanUpdatedEventArgs e)
+        {
+            switch (e.StatusType)
+            {
+                case GestureStatus.Running:
+                    _SwipeStartX = e.TotalX;
+                    _SwipeStartY = e.TotalY;
+                    break;
+                case GestureStatus.Completed:
+                    var xdiff = _SwipeStartX;
+                    var ydiff = _SwipeStartY;
+
+                    if (Math.Abs(xdiff) > Math.Abs(ydiff))
+                    {
+                        if (xdiff < 0 && (SelectedIndex + 1) < m_Header.Children.Count)
+                        {
+                            SelectedIndex = SelectedIndex + 1;
+                        }
+                        else if (xdiff > 0 && (SelectedIndex - 1) > -1)
+                        {
+                            SelectedIndex = SelectedIndex - 1;
+                        }
+                    }
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// The TabLayout.
         /// </summary>
         private void TabLayout()
         {
@@ -223,42 +256,10 @@ namespace Xam.TabView.Control
         }
 
         /// <summary>
-        /// The Tt_PanUpdated
+        /// The XFTabPages_CollectionChanged.
         /// </summary>
-        /// <param name="sender">The sender<see cref="object"/></param>
-        /// <param name="e">The e<see cref="PanUpdatedEventArgs"/></param>
-        private void panGesture_PanUpdated(object sender, PanUpdatedEventArgs e)
-        {
-            switch (e.StatusType)
-            {
-                case GestureStatus.Running:
-                    _SwipeStartX = e.TotalX;
-                    _SwipeStartY = e.TotalY;
-                    break;
-                case GestureStatus.Completed:
-                    var xdiff = _SwipeStartX;
-                    var ydiff = _SwipeStartY;
-
-                    if (Math.Abs(xdiff) > Math.Abs(ydiff))
-                    {
-                        if (xdiff < 0 && (SelectedIndex + 1) < m_Header.Children.Count)
-                        {
-                            SelectedIndex = SelectedIndex + 1;
-                        }
-                        else if (xdiff > 0 && (SelectedIndex - 1) > -1)
-                        {
-                            SelectedIndex = SelectedIndex - 1;
-                        }
-                    }
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// The XFTabPages_CollectionChanged
-        /// </summary>
-        /// <param name="sender">The sender<see cref="object"/></param>
-        /// <param name="e">The e<see cref="System.Collections.Specialized.NotifyCollectionChangedEventArgs"/></param>
+        /// <param name="sender">The sender<see cref="object"/>.</param>
+        /// <param name="e">The e<see cref="System.Collections.Specialized.NotifyCollectionChangedEventArgs"/>.</param>
         private void XFTabPages_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
@@ -275,18 +276,18 @@ namespace Xam.TabView.Control
         #region PUBLIC_METHODS
 
         /// <summary>
-        /// The AddPage
+        /// The AddPage.
         /// </summary>
-        /// <param name="tabPage">The tabPage<see cref="XFTabPage"/></param>
+        /// <param name="tabPage">The tabPage<see cref="XFTabPage"/>.</param>
         public void AddPage(XFTabPage tabPage)
         {
             XFTabPages.Add(tabPage);
         }
 
         /// <summary>
-        /// The SelectPage
+        /// The SelectPage.
         /// </summary>
-        /// <param name="index">The index<see cref="int"/></param>
+        /// <param name="index">The index<see cref="int"/>.</param>
         public void SelectTabPage(int index)
         {
             if (index > -1 && m_Header.Children.Count > index)
@@ -297,9 +298,9 @@ namespace Xam.TabView.Control
         }
 
         /// <summary>
-        /// The SelectTabPage
+        /// The SelectTabPage.
         /// </summary>
-        /// <param name="page">The page<see cref="XFTabPage"/></param>
+        /// <param name="page">The page<see cref="XFTabPage"/>.</param>
         public void SelectTabPage(XFTabPage page)
         {
             if (SelectedPage != null)
@@ -317,10 +318,13 @@ namespace Xam.TabView.Control
         #endregion
 
         /// <summary>
-        /// The OnParentSet
+        /// The OnParentSet.
         /// </summary>
         protected override void OnParentSet()
         {
+            var panGesture = new PanGestureRecognizer();
+            XFTabBody.GestureRecognizers.Add(panGesture);
+            panGesture.PanUpdated += panGesture_PanUpdated;
             TabLayout();
             Content = m_Parent;
             SelectTabPage(SelectedIndex);
@@ -328,7 +332,7 @@ namespace Xam.TabView.Control
         }
 
         /// <summary>
-        /// The SetHeaderColor
+        /// The SetHeaderColor.
         /// </summary>
         internal void SetHeaderColor()
         {
@@ -342,9 +346,9 @@ namespace Xam.TabView.Control
         }
 
         /// <summary>
-        /// The OnTabClicked
+        /// The OnTabClicked.
         /// </summary>
-        /// <param name="e">The e<see cref="OnTabClickedEventArgs"/></param>
+        /// <param name="e">The e<see cref="OnTabClickedEventArgs"/>.</param>
         internal void OnTabClicked(OnTabClickedEventArgs e)
         {
             TabClicked?.Invoke(this, e);

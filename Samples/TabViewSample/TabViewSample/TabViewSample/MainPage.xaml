@@ -10,7 +10,7 @@
         <Label Text="TAB ABOVE CONTENT"></Label>
         <Button Text="Select Next Tab" Clicked="Button_Clicked"></Button>
         <StackLayout x:Name="testing" VerticalOptions="FillAndExpand">
-            <control:XFTabControl x:Name="Tabcomponent" VerticalOptions="FillAndExpand" TabClicked="Tab_TabClicked" HeaderColor="Gray" SelectedIndex="1">
+            <control:XFTabControl x:Name="Tabcomponent" VerticalOptions="FillAndExpand" TabClicked="Tab_TabClicked" HeaderColor="Gray" SelectedIndex="{Binding Index}">
                 <control:XFTabControl.XFTabPages>
                     <tabview:XFTabPage>
                         <tabview:XFTabPage.Header>

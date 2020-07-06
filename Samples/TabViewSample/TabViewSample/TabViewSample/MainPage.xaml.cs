@@ -4,16 +4,68 @@ using Xamarin.Forms;
 
 namespace TabViewSample
 {
+    /// <summary>
+    /// Defines the <see cref="MainPage" />.
+    /// </summary>
     public partial class MainPage : ContentPage
     {
+        #region PRIVATE_VARIABLES
+
+        /// <summary>
+        /// Defines the m_index.
+        /// </summary>
+        private int m_index = 0;
+
+        #endregion
+
+        #region PUBLIC_PPTY
+
+        /// <summary>
+        /// Gets or sets the Index.
+        /// </summary>
+        public int Index
+        {
+            get => m_index;
+            set
+            {
+                m_index = value;
+                OnPropertyChanged(nameof(Index));
+            }
+        }
+
+        #endregion
+
+        #region CONSTRUCTOR
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainPage"/> class.
+        /// </summary>
         public MainPage()
         {
             InitializeComponent();
-
-            //Create the Tab from c# coding
-            //testing.Children.Add(createTab());
+            BindingContext = this;
+            Index = 1;
         }
 
+        #endregion
+
+        #region PRIVATE_METHODS
+
+        /// <summary>
+        /// The Button_Clicked.
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/>.</param>
+        /// <param name="e">The e<see cref="System.EventArgs"/>.</param>
+        private void Button_Clicked(object sender, System.EventArgs e)
+        {
+            var control = Tabcomponent;
+            Index = (control.SelectedIndex + 1) % 3;
+        }
+
+        /// <summary>
+        /// The createTab.
+        /// </summary>
+        /// <returns>The <see cref="XFTabControl"/>.</returns>
         private XFTabControl createTab()
         {
             XFTabControl tab = new XFTabControl
@@ -80,15 +132,16 @@ namespace TabViewSample
 
             return tab;
         }
+
+        /// <summary>
+        /// The Tab_TabClicked.
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/>.</param>
+        /// <param name="args">The args<see cref="OnTabClickedEventArgs"/>.</param>
         private void Tab_TabClicked(object sender, OnTabClickedEventArgs args)
         {
-            //return the tab page. We can change that tab content here also.
         }
 
-        private void Button_Clicked(object sender, System.EventArgs e)
-        {
-            var control = Tabcomponent;
-            control.SelectedIndex = (control.SelectedIndex + 1) % 3;
-        }
+        #endregion
     }
 }
