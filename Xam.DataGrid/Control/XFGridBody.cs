@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Xamarin.Forms;
 
@@ -53,6 +54,12 @@ namespace Xam.DataGrid.Control
         {
             _listView.ItemsSource = null;
             _listView.ItemsSource = _parent.ItemsSource;           
+        }
+
+        internal void LoadPagerSource(IList<object> paginationSource)
+        {
+            _listView.ItemsSource = null;
+            _listView.ItemsSource = paginationSource;
         }
 
         public DataTemplate CreateTemplate()

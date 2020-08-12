@@ -17,7 +17,11 @@ namespace Xam.DataGrid.Control
 
         internal Grid _mParent;
 
-        private XFGridBody _gridItemBody;
+        internal XFGridBody _gridItemBody;
+
+        private GridPaginator _gridPaginator;
+
+        private GridPaginator GridPaginator;
 
         public Color HeaderColor = Color.FromHex("e1e1e1");
 
@@ -28,6 +32,8 @@ namespace Xam.DataGrid.Control
         public double GridBorderWidth = 2;
 
         public event OnItemClickEventHandler OnItemEdit;
+
+        public int ShowRecordPerPages { get; set; } = 10;
 
         internal XFGridHelper _gridHelper;
 
@@ -64,8 +70,19 @@ namespace Xam.DataGrid.Control
                 _ItemsSource = listitem;
             }
         }
+
+        internal int RecordCount
+        {
+            get
+            {
+                return _ItemsSource == null ? 0 : _ItemsSource.Count;
+            }
+        }
+
         public IList ColumnsSource { get; set; }
         public double HeaderHeight { get; private set; } = 50;
+        public double PaginatorHeight { get; private set; } = 50;
+        public bool EnablePagination { get; set; }
         public double GridRowHeight { get; set; } = 50;
         protected override void OnParentSet()
         {
@@ -81,8 +98,15 @@ namespace Xam.DataGrid.Control
                 new RowDefinition{Height= new GridLength(HeaderHeight + 5 , GridUnitType.Absolute) },
                 new RowDefinition{Height= GridLength.Star }
             };
+           
             _mParent.Children.Add(_gridHeader, 0, 0);
             _mParent.Children.Add(_gridItemBody, 0, 1);
+            if (EnablePagination)
+            {
+                _gridPaginator = new GridPaginator(this);
+                _mParent.RowDefinitions.Add(new RowDefinition { Height = new GridLength(PaginatorHeight + 5, GridUnitType.Absolute) });
+                _mParent.Children.Add(_gridPaginator, 0, 2);
+            }
             RefreshGrid();
         }
 
@@ -90,6 +114,10 @@ namespace Xam.DataGrid.Control
         {
             _gridHeader.RefreshHeader();
             _gridItemBody.RefreshBody();
+            if(EnablePagination)
+            {
+                _gridPaginator.CreatePagination();
+            }
         }
 
         internal void RefreshSorting(IList<object> source)
