@@ -6,7 +6,11 @@ namespace Xam.DataGrid.Control
 {
     public class XFGridColumn
     {
-        internal string ColumnName { get; set; }
+        public string DisplayName { get; set; }
+
+        public string PropertyName { get; set; }
+
+        public DataType PropertyType { get; set; }
 
         internal SortType ColumnSortType { get; set; }
     }
@@ -16,5 +20,11 @@ namespace Xam.DataGrid.Control
         None,
         Ascending,
         Descending
+    }
+
+    public enum DataType
+    {
+        TextType,
+        ImageURLType
     }
 }

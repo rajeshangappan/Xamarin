@@ -13,7 +13,7 @@ namespace Xam.DataGrid.Control
 
     public class XFDataGridControl : Frame, INotifyPropertyChanged
     {
-        private XFGridHeader _gridHeader;
+        internal XFGridHeader _gridHeader;
 
         internal Grid _mParent;
 
@@ -79,7 +79,7 @@ namespace Xam.DataGrid.Control
             }
         }
 
-        public IList ColumnsSource { get; set; }
+        public List<XFGridColumn> ColumnsSource { get; set; }
         public double HeaderHeight { get; private set; } = 50;
         public double PaginatorHeight { get; private set; } = 50;
         public bool EnablePagination { get; set; }
@@ -98,7 +98,7 @@ namespace Xam.DataGrid.Control
                 new RowDefinition{Height= new GridLength(HeaderHeight + 5 , GridUnitType.Absolute) },
                 new RowDefinition{Height= GridLength.Star }
             };
-           
+
             _mParent.Children.Add(_gridHeader, 0, 0);
             _mParent.Children.Add(_gridItemBody, 0, 1);
             if (EnablePagination)
@@ -114,7 +114,7 @@ namespace Xam.DataGrid.Control
         {
             _gridHeader.RefreshHeader();
             _gridItemBody.RefreshBody();
-            if(EnablePagination)
+            if (EnablePagination)
             {
                 _gridPaginator.CreatePagination();
             }
@@ -123,7 +123,10 @@ namespace Xam.DataGrid.Control
         internal void RefreshSorting(IList<object> source)
         {
             _ItemsSource = source;
-            _gridItemBody.RefreshOnSort();
+            if (EnablePagination)
+                _gridPaginator.LoadData(_gridPaginator.SelectedIndex);
+            else
+                _gridItemBody.RefreshOnSort();
         }
     }
 }

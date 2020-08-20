@@ -10,17 +10,15 @@ namespace Xam.DataGrid.Control
     {
         private XFDataGridControl _parent;
 
-        private List<XFGridColumn> xFGridColumns;
 
         public XFGridHeader(XFDataGridControl xFDataGrid)
         {
             _parent = xFDataGrid;
             RowSpacing = 0;
             ColumnSpacing = xFDataGrid.GridBorderWidth;
-            xFGridColumns = new List<XFGridColumn>();
         }
 
-        private IList ColumnSource
+        private List<XFGridColumn> ColumnSource
         {
             get
             {
@@ -74,7 +72,7 @@ namespace Xam.DataGrid.Control
         private void CreateGridHeader()
         {
             this.BackgroundColor = BorderColor;
-            var count = XFGridHelper.GetPropCount(ItemSource);
+            var count = ColumnSource != null ? ColumnSource.Count : XFGridHelper.GetPropCount(ItemSource);
             this.ColumnDefinitions = new ColumnDefinitionCollection();
             for (int i = 0; i < count; i++)
             {
@@ -85,11 +83,21 @@ namespace Xam.DataGrid.Control
                 new RowDefinition { Height = HeaderHeight },
                 new RowDefinition{ Height = 5 }
             };
-            if (ColumnSource == null)
+            if (ColumnSource == null || ColumnSource.Count == 0)
                 CreateDeafultHeader();
+            else
+                CreateGridColumnHeader();
             BoxView v = new BoxView { BackgroundColor = BorderColor };
             this.Children.Add(v, 0, 1);
             SetColumnSpan(v, count);
+        }
+
+        private void CreateGridColumnHeader()
+        {
+            for (int i = 0; i < ColumnSource.Count; i++)
+            {
+                this.Children.Add(GetHeaderLabel(ColumnSource[i]), i, 0);
+            }
         }
 
         private void CreateDeafultHeader()
@@ -99,26 +107,34 @@ namespace Xam.DataGrid.Control
             {
                 if (prop.PropertyType.IsValueType || prop.PropertyType == typeof(string))
                 {
-                    var gridcolumn = new XFGridColumn();
-                    gridcolumn.ColumnName = prop.Name;
-                    var propLabel = new Label
+                    var gridcolumn = new XFGridColumn
                     {
-                        BackgroundColor = HeaderColor,
-                        Text = prop.Name,
-                        FontAttributes = FontAttributes.Bold
+                        DisplayName = prop.Name,
+                        PropertyName = prop.Name
                     };
-                    var sortGesture = new TapGestureRecognizer
-                    {
-                        CommandParameter = gridcolumn
-                    };
-                    sortGesture.Tapped -= SortGesture_Tapped;
-                    sortGesture.Tapped += SortGesture_Tapped;
-                    propLabel.GestureRecognizers.Add(sortGesture);
-                    this.Children.Add(propLabel, column, 0);
+                    this.Children.Add(GetHeaderLabel(gridcolumn), column, 0);
                     column++;
-
                 }
             }
+        }
+
+        private Label GetHeaderLabel(XFGridColumn gridcolumn)
+        {
+            var propLabel = new HeaderLabel
+            {
+                BackgroundColor = HeaderColor,
+                Text = gridcolumn.PropertyName,
+                FontAttributes = FontAttributes.Bold,
+                ColumnObj = gridcolumn
+            };
+            var sortGesture = new TapGestureRecognizer
+            {
+                CommandParameter = gridcolumn
+            };
+            sortGesture.Tapped -= SortGesture_Tapped;
+            sortGesture.Tapped += SortGesture_Tapped;
+            propLabel.GestureRecognizers.Add(sortGesture);
+            return propLabel;
         }
 
         private void SortGesture_Tapped(object sender, EventArgs e)
@@ -128,7 +144,7 @@ namespace Xam.DataGrid.Control
             {
                 var sorttype = (gridCol.ColumnSortType == SortType.None || gridCol.ColumnSortType == SortType.Descending) ? SortType.Ascending : SortType.Descending;
                 gridCol.ColumnSortType = sorttype;
-                var result = GridHelper.Sort_List<object>(sorttype, gridCol.ColumnName, ItemSource as List<object>);
+                var result = GridHelper.Sort_List(sorttype, gridCol.PropertyName, ItemSource as List<object>);
                 _parent.RefreshSorting(result);
             }
         }

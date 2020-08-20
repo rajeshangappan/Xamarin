@@ -11,7 +11,7 @@ namespace Xam.DataGrid.Control
     {
         private readonly XFDataGridControl _parent;
         private ListView _listView;
-        
+
         internal XFGridBody(XFDataGridControl control)
         {
             _parent = control;
@@ -53,7 +53,7 @@ namespace Xam.DataGrid.Control
         internal void RefreshOnSort()
         {
             _listView.ItemsSource = null;
-            _listView.ItemsSource = _parent.ItemsSource;           
+            _listView.ItemsSource = _parent.ItemsSource;
         }
 
         internal void LoadPagerSource(IList<object> paginationSource)
@@ -67,27 +67,25 @@ namespace Xam.DataGrid.Control
             var listTemplate = new DataTemplate(() =>
             {
                 var grid = GetRowGrid();
-                var obj = GridItemSource[0];
                 grid.BackgroundColor = _parent.GridBorderColor;
                 var column = 0;
-                foreach (var prop in obj.GetType().GetProperties())
+                foreach (var headercolumn in _parent._gridHeader.Children)
                 {
-                    if (prop.PropertyType.IsValueType || prop.PropertyType == typeof(string))
+                    HeaderLabel _headerLabel = headercolumn as HeaderLabel;
+                    if (_headerLabel == null) break;
+                    var propLabel = new Label();
+                    propLabel.SetBinding(Label.TextProperty, _headerLabel.ColumnObj.PropertyName);
+                    propLabel.BackgroundColor = _parent.GridBackgroundColor;
+                    grid.Children.Add(propLabel, column, 0);
+                    var tapGestureRecognizer = new TapGestureRecognizer
                     {
-                        var propLabel = new Label();
-                        propLabel.SetBinding(Label.TextProperty, prop.Name);
-                        propLabel.BackgroundColor = _parent.GridBackgroundColor;
-                        grid.Children.Add(propLabel, column, 0);
-                        var tapGestureRecognizer = new TapGestureRecognizer
-                        {
-                            NumberOfTapsRequired = 2,
-                            CommandParameter = prop.Name
-                        };
-                        tapGestureRecognizer.Tapped -= TapGestureRecognizer_Tapped;
-                        tapGestureRecognizer.Tapped += TapGestureRecognizer_Tapped;
-                        propLabel.GestureRecognizers.Add(tapGestureRecognizer);
-                        column++;
-                    }
+                        NumberOfTapsRequired = 2,
+                        CommandParameter = _headerLabel.ColumnObj.PropertyName
+                    };
+                    tapGestureRecognizer.Tapped -= TapGestureRecognizer_Tapped;
+                    tapGestureRecognizer.Tapped += TapGestureRecognizer_Tapped;
+                    propLabel.GestureRecognizers.Add(tapGestureRecognizer);
+                    column++;
                 }
                 BoxView bv = new BoxView { HeightRequest = 5, BackgroundColor = _parent.GridBorderColor };
                 grid.Children.Add(bv, 0, 1);
@@ -108,7 +106,7 @@ namespace Xam.DataGrid.Control
         {
             var grid = new Grid { RowSpacing = BorderWidth, ColumnSpacing = BorderWidth };
             grid.ColumnDefinitions = new ColumnDefinitionCollection();
-            var count = XFGridHelper.GetPropCount(GridItemSource);
+            var count = _parent.ColumnsSource != null ? _parent.ColumnsSource.Count : XFGridHelper.GetPropCount(GridItemSource);
             for (int i = 0; i < count; i++)
             {
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
