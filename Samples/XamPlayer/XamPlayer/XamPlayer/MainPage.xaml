@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:local ="clr-namespace:XamPlayer.Views"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="XamPlayer.MainPage">
+
+    <TableView Intent="Menu">
+        <TableRoot>
+            <TableSection>
+                <TextCell Text="Play Web Video"
+                          Detail="Play a video by specifying a URL"
+                          Command="{Binding NavigateCommand}"
+                          CommandParameter="{x:Type local:PlayWebVideoPage}" />
+
+                <TextCell Text="Select Web Video" 
+                          Detail="Select a video from a ListView"
+                          Command="{Binding NavigateCommand}"
+                          CommandParameter="{x:Type local:SelectWebVideoPage}" />
+
+                
+
+                <TextCell Text="Play Library Video"
+                          Detail="Play a video from the photos and videos library"
+                          Command="{Binding NavigateCommand}"
+                          CommandParameter="{x:Type local:PlayLibraryVideoPage}" />
+
+             
+            </TableSection>
+        </TableRoot>
+    </TableView>
+</ContentPage>
