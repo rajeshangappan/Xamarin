@@ -1,23 +1,24 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using Xamarin.Forms;
 
 namespace Xam.DataGrid.Control
 {
-    public class XFGridHeader : Grid
+    /// <summary>
+    /// Defines the <see cref="XFGridHeader" />.
+    /// </summary>
+    internal class XFGridHeader : Grid
     {
+        #region Private_Properties
+
+        /// <summary>
+        /// Defines the _parent.
+        /// </summary>
         private XFDataGridControl _parent;
 
-
-        public XFGridHeader(XFDataGridControl xFDataGrid)
-        {
-            _parent = xFDataGrid;
-            RowSpacing = 0;
-            ColumnSpacing = xFDataGrid.GridBorderWidth;
-        }
-
+        /// <summary>
+        /// Gets the ColumnSource.
+        /// </summary>
         private List<XFGridColumn> ColumnSource
         {
             get
@@ -26,14 +27,20 @@ namespace Xam.DataGrid.Control
             }
         }
 
-        private IList ItemSource
+        /// <summary>
+        /// Gets the DataSource.
+        /// </summary>
+        private IList<object> DataSource
         {
             get
             {
-                return _parent.ItemsSource;
+                return _parent.DataSource;
             }
         }
 
+        /// <summary>
+        /// Gets the BorderColor.
+        /// </summary>
         private Color BorderColor
         {
             get
@@ -42,6 +49,9 @@ namespace Xam.DataGrid.Control
             }
         }
 
+        /// <summary>
+        /// Gets the HeaderColor.
+        /// </summary>
         private Color HeaderColor
         {
             get
@@ -50,6 +60,9 @@ namespace Xam.DataGrid.Control
             }
         }
 
+        /// <summary>
+        /// Gets the HeaderHeight.
+        /// </summary>
         private double HeaderHeight
         {
             get
@@ -57,6 +70,10 @@ namespace Xam.DataGrid.Control
                 return _parent.HeaderHeight;
             }
         }
+
+        /// <summary>
+        /// Gets the GridHelper.
+        /// </summary>
         private XFGridHelper GridHelper
         {
             get
@@ -64,15 +81,33 @@ namespace Xam.DataGrid.Control
                 return _parent._gridHelper;
             }
         }
-        internal void RefreshHeader()
+
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="XFGridHeader"/> class.
+        /// </summary>
+        /// <param name="xFDataGrid">The xFDataGrid<see cref="XFDataGridControl"/>.</param>
+        public XFGridHeader(XFDataGridControl xFDataGrid)
         {
-            CreateGridHeader();
+            _parent = xFDataGrid;
+            RowSpacing = 0;
+            ColumnSpacing = xFDataGrid.GridBorderWidth;
         }
 
+        #endregion
+
+        #region Private_Methods
+
+        /// <summary>
+        /// The CreateGridHeader.
+        /// </summary>
         private void CreateGridHeader()
         {
-            this.BackgroundColor = BorderColor;
-            var count = ColumnSource != null ? ColumnSource.Count : XFGridHelper.GetPropCount(ItemSource);
+            BackgroundColor = BorderColor;
+            var count = ColumnSource != null ? ColumnSource.Count : XFGridHelper.GetPropCount(DataSource);
             this.ColumnDefinitions = new ColumnDefinitionCollection();
             for (int i = 0; i < count; i++)
             {
@@ -92,6 +127,9 @@ namespace Xam.DataGrid.Control
             SetColumnSpan(v, count);
         }
 
+        /// <summary>
+        /// The CreateGridColumnHeader.
+        /// </summary>
         private void CreateGridColumnHeader()
         {
             for (int i = 0; i < ColumnSource.Count; i++)
@@ -100,10 +138,13 @@ namespace Xam.DataGrid.Control
             }
         }
 
+        /// <summary>
+        /// The CreateDeafultHeader.
+        /// </summary>
         private void CreateDeafultHeader()
         {
             var column = 0;
-            foreach (var prop in ItemSource[0].GetType().GetProperties())
+            foreach (var prop in DataSource[0].GetType().GetProperties())
             {
                 if (prop.PropertyType.IsValueType || prop.PropertyType == typeof(string))
                 {
@@ -118,6 +159,11 @@ namespace Xam.DataGrid.Control
             }
         }
 
+        /// <summary>
+        /// The GetHeaderLabel.
+        /// </summary>
+        /// <param name="gridcolumn">The gridcolumn<see cref="XFGridColumn"/>.</param>
+        /// <returns>The <see cref="Label"/>.</returns>
         private Label GetHeaderLabel(XFGridColumn gridcolumn)
         {
             var propLabel = new HeaderLabel
@@ -127,6 +173,7 @@ namespace Xam.DataGrid.Control
                 FontAttributes = FontAttributes.Bold,
                 ColumnObj = gridcolumn
             };
+            ApplyHeaderTextStyle(propLabel);
             var sortGesture = new TapGestureRecognizer
             {
                 CommandParameter = gridcolumn
@@ -137,6 +184,28 @@ namespace Xam.DataGrid.Control
             return propLabel;
         }
 
+        /// <summary>
+        /// The ApplyHeaderTextStyle.
+        /// </summary>
+        /// <param name="label">The label<see cref="HeaderLabel"/>.</param>
+        private void ApplyHeaderTextStyle(HeaderLabel label)
+        {
+            if (_parent.GridHeaderStyle != null)
+            {
+                label.TextColor = _parent.GridHeaderStyle.TextColor;
+                label.HorizontalTextAlignment = _parent.GridHeaderStyle.HorizontalTextAlignment;
+                label.VerticalTextAlignment = _parent.GridHeaderStyle.VerticalTextAlignment;
+                label.FontSize = _parent.GridHeaderStyle.FontSize;
+                label.FontAttributes = _parent.GridHeaderStyle.FontAttributes;
+                label.FontFamily = _parent.GridHeaderStyle.FontFamily;
+            }
+        }
+
+        /// <summary>
+        /// The SortGesture_Tapped.
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/>.</param>
+        /// <param name="e">The e<see cref="EventArgs"/>.</param>
         private void SortGesture_Tapped(object sender, EventArgs e)
         {
             var gridCol = (e as TappedEventArgs).Parameter as XFGridColumn;
@@ -144,9 +213,24 @@ namespace Xam.DataGrid.Control
             {
                 var sorttype = (gridCol.ColumnSortType == SortType.None || gridCol.ColumnSortType == SortType.Descending) ? SortType.Ascending : SortType.Descending;
                 gridCol.ColumnSortType = sorttype;
-                var result = GridHelper.Sort_List(sorttype, gridCol.PropertyName, ItemSource as List<object>);
+                var result = GridHelper.SortList(sorttype, gridCol.PropertyName, DataSource as List<object>);
                 _parent.RefreshSorting(result);
             }
         }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The RefreshHeader.
+        /// </summary>
+        internal void RefreshHeader()
+        {
+            if (DataSource != null)
+                CreateGridHeader();
+        }
+
+        #endregion
     }
 }
