@@ -1,12 +1,44 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageProjectUrl>https://github.com/rajeshangappan/Xamarin/tree/master/Xam.DataGrid</PackageProjectUrl>
+		<PackageTags>Xamarin;Grid;Xamarin.Grid;Pagination;Virtualization;Sorting</PackageTags>
+		<PackageReleaseNotes>Xamarin Grid View</PackageReleaseNotes>
+		<Company>NVTech</Company>
+		<Authors>Rajesh Angappan</Authors>
+		<PackageLicenseUrl></PackageLicenseUrl>
+		<PackageLicenseFile></PackageLicenseFile>
+		<NeutralLanguage>en</NeutralLanguage>
+		<RepositoryType>Git Hub</RepositoryType>
+		<RepositoryUrl>https://github.com/rajeshangappan</RepositoryUrl>
+		<Version>1.0.1</Version>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<Title>Xamarin Grid Control</Title>
+		<NeutralLanguage>en</NeutralLanguage>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<Description>
+			Xam.GridView
+			- This control useful to show the list of items in grid view. It’s fully implemented by xamarin.forms. It’s not depends on native UI.
+			Features:
+			- Load the list of items in grid view.
+			- Pagination support
+			- Virtual pagination support.
+			- Pull To Refresh Support
+			- Header Style
+			- Item Style
+			- Customize the Grid Header, Item and paginator.
+		</Description>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="3.4.0.1008975" />
-  </ItemGroup>
+	<ItemGroup>
+	  <None Remove="License.txt" />
+	  <None Remove="License.txt" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Xamarin.Forms" Version="3.4.0.1008975" />
+	</ItemGroup>
 
 </Project>
