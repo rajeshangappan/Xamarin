@@ -6,8 +6,8 @@ Sample code:
 
 XML:
 
-| \&lt;control:XFDataGridControl ItemsSource=&quot;{Binding Itemsource}&quot; EnablePagination=&quot;True&quot; ShowRecordPerPages=&quot;12&quot; GridBorderColor=&quot;Blue&quot; HorizontalOptions=&quot;FillAndExpand&quot; VerticalOptions=&quot;FillAndExpand&quot;\&gt;\&lt;/control:XFDataGridControl\&gt; |
-| --- |
+|     <control:XFDataGridControl ItemsSource="{Binding Itemsource}" EnablePagination="True"  ShowRecordPerPages="12" GridBorderColor="Blue" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">                </control:XFDataGridControl>    |
+|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 
 C#:
 
@@ -51,4 +51,4 @@ Events:
 | --- | --- |
 | OnItemSelect | It will trigger when selecting the grid item |
 | OnPullToRefresh | It will trigger when pull to refresh action happened. |
-| OnNeedDataSource | It will trigger below scenario.Virtual Pagination – when you are selecting the page index.Sorting – on virtual pagination when you are trying to show the new data.This event will override your existing data and it will show the new item source. |
+| OnNeedDataSource | It will trigger below scenario.Virtual Pagination â€“ when you are selecting the page index.Sorting â€“ on virtual pagination when you are trying to show the new data.This event will override your existing data and it will show the new item source. |
