@@ -20,19 +20,17 @@ namespace Xam.DataGrid.Control
     public delegate void OnPullToRefreshEventHandler(object sender, XFPullToRefreshEventArgs args);
 
     /// <summary>
+    /// The OnNeedDataEventHandler.
+    /// </summary>
+    /// <param name="sender">The sender<see cref="object"/>.</param>
+    /// <param name="args">The args<see cref="XFNeedDataSourceEventArgs"/>.</param>
+    public delegate void OnNeedDataEventHandler(object sender, XFNeedDataSourceEventArgs args);
+
+    /// <summary>
     /// Defines the <see cref="XFDataGridControl" />.
     /// </summary>
     public partial class XFDataGridControl : Frame, INotifyPropertyChanged
     {
-        #region Private_Properties
-
-        /// <summary>
-        /// Defines the IsLoaded.
-        /// </summary>
-        private bool IsLoaded;
-
-        #endregion
-
         #region Public_Internal_Properties
 
         /// <summary>
@@ -47,6 +45,8 @@ namespace Xam.DataGrid.Control
         {
             get
             {
+                if (EnableVirtualPagination)
+                    return this.VirtualRecordCount;
                 return DataSource == null ? 0 : DataSource.Count;
             }
         }
@@ -102,6 +102,24 @@ namespace Xam.DataGrid.Control
         public double GridRowHeight
         {
             get { return (double)GetValue(GridRowHeightProperty); }
+            set { SetValue(GridRowHeightProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether EnableVirtualPagination.
+        /// </summary>
+        public bool EnableVirtualPagination
+        {
+            get { return (bool)GetValue(EnableVirtualPaginationProperty); }
+            set { SetValue(GridRowHeightProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the VirtualRecordCount.
+        /// </summary>
+        public int VirtualRecordCount
+        {
+            get { return (int)GetValue(VirtualRecordCountProperty); }
             set { SetValue(GridRowHeightProperty, value); }
         }
 
@@ -176,6 +194,21 @@ namespace Xam.DataGrid.Control
             get { return (Color)GetValue(HeaderColorProperty); }
             set { SetValue(HeaderColorProperty, value); }
         }
+
+        /// <summary>
+        /// Defines the IsLoaded.
+        /// </summary>
+        internal bool IsLoaded;
+
+        /// <summary>
+        /// Defines the EnableVirtualPaginationProperty.
+        /// </summary>
+        public static readonly BindableProperty EnableVirtualPaginationProperty = BindableProperty.Create (nameof(EnableVirtualPagination), typeof(bool), typeof(XFDataGridControl), false);
+
+        /// <summary>
+        /// Defines the VirtualRecordCountProperty.
+        /// </summary>
+        public static readonly BindableProperty VirtualRecordCountProperty = BindableProperty.Create (nameof(VirtualRecordCount), typeof(int), typeof(XFDataGridControl), 0);
 
         /// <summary>
         /// Defines the ColumnsSourceProperty.
@@ -353,6 +386,20 @@ namespace Xam.DataGrid.Control
         }
 
         /// <summary>
+        /// The OnPullToRefreshEvent.
+        /// </summary>
+        internal void OnNeedDataSourceEvent()
+        {
+            if (OnNeedDataSource != null && IsLoaded)
+            {
+                XFNeedDataSourceEventArgs args = new XFNeedDataSourceEventArgs();
+                args.CurrentPageIndex = _gridPaginator.SelectedIndex;
+                OnNeedDataSource.Invoke(this, args);
+                ItemsSource = args.ItemSource;
+            }
+        }
+
+        /// <summary>
         /// The RefreshGrid.
         /// </summary>
         internal void RefreshGrid()
@@ -412,5 +459,10 @@ namespace Xam.DataGrid.Control
         /// Defines the OnPullToRefresh.
         /// </summary>
         public event OnPullToRefreshEventHandler OnPullToRefresh;
+
+        /// <summary>
+        /// Defines the OnNeedDataSource.
+        /// </summary>
+        public event OnNeedDataEventHandler OnNeedDataSource;
     }
 }

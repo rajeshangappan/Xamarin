@@ -208,8 +208,8 @@ namespace Xam.DataGrid.Control
         /// <param name="e">The e<see cref="EventArgs"/>.</param>
         private void SortGesture_Tapped(object sender, EventArgs e)
         {
-            var gridCol = (e as TappedEventArgs).Parameter as XFGridColumn;
-            if (gridCol != null)
+            _parent.OnNeedDataSourceEvent();
+            if ((e as TappedEventArgs).Parameter is XFGridColumn gridCol)
             {
                 var sorttype = (gridCol.ColumnSortType == SortType.None || gridCol.ColumnSortType == SortType.Descending) ? SortType.Ascending : SortType.Descending;
                 gridCol.ColumnSortType = sorttype;

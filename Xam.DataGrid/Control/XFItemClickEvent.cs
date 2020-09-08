@@ -45,4 +45,24 @@ namespace Xam.DataGrid.Control
 
         #endregion
     }
+
+    /// <summary>
+    /// Defines the <see cref="XFNeedDataSourceEventArgs" />.
+    /// </summary>
+    public class XFNeedDataSourceEventArgs
+    {
+        #region Public_Internal_Properties
+
+        /// <summary>
+        /// Gets or sets the ItemSource.
+        /// </summary>
+        public IList ItemSource { get; set; }
+
+        /// <summary>
+        /// Defines the CurrentPageIndex.
+        /// </summary>
+        public int CurrentPageIndex;
+
+        #endregion
+    }
 }

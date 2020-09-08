@@ -38,7 +38,7 @@ namespace Xam.DataGrid.Control
 
         /// <summary>
         /// Gets a value indicating whether EnablePullToRefresh
-        /// Gets or sets a value indicating whether EnablePullToRefresh..
+        /// Gets or sets a value indicating whether EnablePullToRefresh...
         /// </summary>
         internal bool EnablePullToRefresh
         {
@@ -119,7 +119,7 @@ namespace Xam.DataGrid.Control
         /// <returns>The <see cref="Grid"/>.</returns>
         private Grid GetRowGrid()
         {
-            var grid = new Grid { RowSpacing = BorderWidth, ColumnSpacing = BorderWidth };            
+            var grid = new Grid { RowSpacing = BorderWidth, ColumnSpacing = BorderWidth };
             grid.ColumnDefinitions = new ColumnDefinitionCollection();
             var count = _parent.ColumnsSource != null ? _parent.ColumnsSource.Count : XFGridHelper.GetPropCount(GridItemSource);
             for (int i = 0; i < count; i++)

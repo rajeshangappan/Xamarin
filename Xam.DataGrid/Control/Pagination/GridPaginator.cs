@@ -253,10 +253,20 @@ namespace Xam.DataGrid.Control
         /// <returns>The <see cref="IList{object}"/>.</returns>
         private IList<object> GetPageSource()
         {
-            int startindex = (SelectedIndex - 1) * ShowRecordPerPages;
-            int endindex = startindex + ShowRecordPerPages <= _parent.DataSource.Count ?
+            if (_parent.EnableVirtualPagination)
+            {
+                int startindex = 0;
+                int endindex = startindex + ShowRecordPerPages <= _parent.DataSource.Count ?
                                 startindex + ShowRecordPerPages : _parent.DataSource.Count;
-            return (_parent.DataSource as List<object>).GetRange(startindex, endindex - startindex);
+                return _parent.DataSource.GetRange(startindex, endindex - startindex);
+            }
+            else
+            {
+                int startindex = (SelectedIndex - 1) * ShowRecordPerPages;
+                int endindex = startindex + ShowRecordPerPages <= _parent.DataSource.Count ?
+                                startindex + ShowRecordPerPages : _parent.DataSource.Count;
+                return _parent.DataSource.GetRange(startindex, endindex - startindex);
+            }
         }
 
         /// <summary>
@@ -299,6 +309,7 @@ namespace Xam.DataGrid.Control
         {
             SelectedIndex = index;
             HighlightIndex(index);
+            _parent.OnNeedDataSourceEvent();
             _parent._gridItemBody.LoadPagerSource(GetPageSource());
             UpdatePager();
         }
