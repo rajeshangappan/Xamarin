@@ -119,7 +119,7 @@ namespace Xam.DataGrid.Control
         /// <returns>The <see cref="Grid"/>.</returns>
         private Grid GetRowGrid()
         {
-            var grid = new Grid { RowSpacing = BorderWidth, ColumnSpacing = BorderWidth };
+            var grid = new Grid { RowSpacing = BorderWidth, ColumnSpacing = BorderWidth };            
             grid.ColumnDefinitions = new ColumnDefinitionCollection();
             var count = _parent.ColumnsSource != null ? _parent.ColumnsSource.Count : XFGridHelper.GetPropCount(GridItemSource);
             for (int i = 0; i < count; i++)
@@ -129,7 +129,7 @@ namespace Xam.DataGrid.Control
             grid.RowDefinitions = new RowDefinitionCollection
             {
                 new RowDefinition { Height = RowHeight },
-                new RowDefinition{ Height = 5 }
+                new RowDefinition{ Height = BorderWidth }
             };
             return grid;
         }
@@ -166,6 +166,8 @@ namespace Xam.DataGrid.Control
                 var template = CreateTemplate();
                 _listView = new ListView { ItemsSource = GridItemSource, ItemTemplate = template };//, Margin
                 this.Children.Add(_listView);
+                _listView.SeparatorVisibility = SeparatorVisibility.None;
+                _listView.HasUnevenRows = true;
                 PullToRefresh();
             }
         }

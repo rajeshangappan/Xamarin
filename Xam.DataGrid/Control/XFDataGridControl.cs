@@ -260,7 +260,7 @@ namespace Xam.DataGrid.Control
         /// <summary>
         /// Defines the GridBorderWidthProperty.
         /// </summary>
-        public static readonly BindableProperty GridBorderWidthProperty = BindableProperty.Create (nameof(GridBorderWidth), typeof(double), typeof(XFDataGridControl), 2.0);
+        public static readonly BindableProperty GridBorderWidthProperty = BindableProperty.Create (nameof(GridBorderWidth), typeof(double), typeof(XFDataGridControl), 1.0);
 
         /// <summary>
         /// Defines the HeaderColorProperty.
