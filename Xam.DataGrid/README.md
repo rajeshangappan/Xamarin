@@ -1,19 +1,25 @@
 **Xam.GridView**
 
+[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://github.com/rajeshangappan/Xamarin)
+
 - This control useful to show the list of items in grid view. It&#39;s fully implemented by xamarin.forms. It&#39;s not depends on native UI.
 
 Sample code:
 
 XML:
 
-|     <control:XFDataGridControl ItemsSource="{Binding Itemsource}" EnablePagination="True"  ShowRecordPerPages="12" GridBorderColor="Blue" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">                </control:XFDataGridControl>    |
-|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+```
+<control:XFDataGridControl ItemsSource="{Binding Itemsource}" EnablePagination="True"  ShowRecordPerPages="12" GridBorderColor="Blue" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">                </control:XFDataGridControl> 
+```
 
 C#:
-
-| XFDataGridControl control = new XFDataGridControl();control.ItemsSource = model.Itemsource;control.ColumnsSource = (List\&lt;XFGridColumn\&gt;)model.GridColumns;control.EnablePagination = true;control.ShowRecordPerPages = 12; |
-| --- |
-
+```
+XFDataGridControl control = new XFDataGridControl();
+control.ItemsSource = model.Itemsource;
+control.ColumnsSource = (List\&lt;XFGridColumn\&gt;)model.GridColumns;
+control.EnablePagination = true;
+control.ShowRecordPerPages = 12; 
+```
 Features:
 
 - Load the list of items in grid view.
