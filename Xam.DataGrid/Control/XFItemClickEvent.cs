@@ -13,7 +13,7 @@ namespace Xam.DataGrid.Control
         /// <summary>
         /// Gets or sets the Item.
         /// </summary>
-        public Object Item { get; set; }
+        public object Item { get; set; }
 
         #endregion
 
