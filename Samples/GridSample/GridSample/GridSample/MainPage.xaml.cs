@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -14,49 +15,63 @@ namespace GridSample
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
+        public string testing { get; set; } = "testing";
         public MainPage()
         {
+            
             InitializeComponent();
-
-            var source = new emp[]
-            {
-                new emp {  Name = "Smith",Age=89 },
-                new emp {  Name = "John", Age=11 }
-            }.ToList();
-
-            for (int k = 0; k < 43; k++)
-            {
-                var test = new[]
-            {
-                new emp {  Name = "Smith",Age=20 + k + 10 },
-                new emp {  Name = "John", Age=200 + k + 10 }
-            }.ToList();
-                source.AddRange(test.ToList());
-            }
-
-
-
-            var grid = new XFDataGridControl
-            {
-                ItemsSource = source,
-                VerticalOptions = LayoutOptions.FillAndExpand,
-                HorizontalOptions = LayoutOptions.FillAndExpand
-            };
-            // grid.refres();
-            grid.OnItemEdit += Grid_OnItemEdit;
-            stack.Children.Add(grid);
+            BindingContext = new MainPageViewModel();
         }
 
-        private void Grid_OnItemEdit(object sender, XFItemClickEventArgs args)
+        internal void CreateGrid()
         {
-            var obj = args.Item as emp;
-            obj.Name = "testing";
+            var model = new MainPageViewModel();
+            XFDataGridControl control = new XFDataGridControl();
+            control.ItemsSource = model.Itemsource;
+            control.ColumnsSource = (List<XFGridColumn>)model.GridColumns;
+            control.EnablePagination = true;
+            control.ShowRecordPerPages = 12;
+        }
+
+        private void Grid_OnPullToRefresh(object sender, XFPullToRefreshEventArgs args)
+        {
+            IList tt = new emp[]
+            {
+                new emp {  name = "test",age=89, id = "test" + 89 },
+
+            }.ToList();
+            for (int k = 0; k < 3; k++)
+            {
+                tt.Add(new emp { name = "newitem" + k, age = 20 + k + 10, id = "upee" + k });
+            }
+            args.NewItems = tt;
+        }
+
+        private void XFDataGridControl_OnNeedDataSource(object sender, XFNeedDataSourceEventArgs args)
+        {
+            var src = new emp[]
+           {
+                new emp { name = "datasource", age = 38, id = "sam" + 1 }
+
+           }.ToList();
+
+            for (int i = 2; i < 12; i++)
+            {
+                src.Add(new emp { name = "datasource " + i, age = i + 20, id = "sam" + i });
+            }
+            args.ItemSource = src;
+        }
+
+        private void XFDataGridControl_OnItemSelect(object sender, XFItemClickEventArgs args)
+        {
+
         }
     }
 
     public class emp
     {
-        public string Name { get; set; }
-        public int Age { get; set; }
+        public string name { get; set; }
+        public int age { get; set; }
+        public string id { get; set; }
     }
 }

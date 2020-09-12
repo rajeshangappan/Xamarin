@@ -2,54 +2,19 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:control="clr-namespace:Xam.DataGrid.Control;assembly=Xam.DataGrid"
              mc:Ignorable="d"
              x:Class="GridSample.MainPage">
 
     <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="stack" BackgroundColor="Red">
+        
+        <Label Text="testing"></Label>
 
-        <Label Text="kjefvnk"></Label>
-        <!--<Grid RowSpacing="0" ColumnSpacing="0" VerticalOptions="FillAndExpand">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="100"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-            </Grid.RowDefinitions>
-            <StackLayout Grid.Row="0">
-                <Label Text="header"></Label>
-            </StackLayout>
-            <FlexLayout Grid.Row="1"  Direction="Column" BackgroundColor="Green" >
-                <Grid BackgroundColor="Black">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <BoxView Grid.Row="0" Grid.Column="0" BackgroundColor="White" Margin="0,0,0,0" />
-                    <Label Text="1" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-                    <BoxView Grid.Row="0" Grid.Column="1" BackgroundColor="White" />
-                    <Label Text="2" Grid.Row="0" Grid.Column="1" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-                    <BoxView Grid.Row="0" Grid.Column="2" BackgroundColor="White" />
-                    <Label Text="3" Grid.Row="0" Grid.Column="2" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-                    <BoxView Grid.Row="1" Grid.Column="0" BackgroundColor="White" />
-                    <Label Text="4" Grid.Row="1" Grid.Column="0" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-                    <BoxView Grid.Row="1" Grid.Column="1" BackgroundColor="White" />
-                    <Label Text="5" Grid.Row="1" Grid.Column="1" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-                    <BoxView Grid.Row="1" Grid.Column="2" BackgroundColor="White" />
-                    <Label Text="6" Grid.Row="1" Grid.Column="2" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-                    <BoxView Grid.Row="2" Grid.Column="0" BackgroundColor="White" />
-                    <Label Text="7" Grid.Row="2" Grid.Column="0" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-                    <BoxView Grid.Row="2" Grid.Column="1" BackgroundColor="White" />
-                    <Label Text="8" Grid.Row="2" Grid.Column="1" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-                    <BoxView Grid.Row="2" Grid.Column="2" BackgroundColor="White" />
-                    <Label Text="9" Grid.Row="2" Grid.Column="2" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-                </Grid>
-            </FlexLayout>
-        </Grid>-->
+        <!--<Frame HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BorderColor="Yellow"></Frame>-->
+
+        <control:XFDataGridControl ItemsSource="{Binding Itemsource}" EnablePagination="True" ShowRecordPerPages="12" GridBorderColor="Blue" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" OnItemSelect="XFDataGridControl_OnItemSelect">
+
+        </control:XFDataGridControl>
     </StackLayout>
 
 </ContentPage>
