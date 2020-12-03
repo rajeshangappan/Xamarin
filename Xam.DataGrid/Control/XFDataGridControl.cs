@@ -187,12 +187,30 @@ namespace Xam.DataGrid.Control
         }
 
         /// <summary>
+        /// Gets or sets the GridBorderWidth.
+        /// </summary>
+        public double HeaderSelectorHeight
+        {
+            get { return (double)GetValue(HeaderSelectorHeightProperty); }
+            set { SetValue(HeaderSelectorHeightProperty, value); }
+        }
+
+        /// <summary>
         /// Gets or sets the HeaderColor.
         /// </summary>
         public Color HeaderColor
         {
             get { return (Color)GetValue(HeaderColorProperty); }
             set { SetValue(HeaderColorProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the HeaderColor.
+        /// </summary>
+        public Color PaginatorBackgroundColor
+        {
+            get { return (Color)GetValue(PaginatorBackgroundColorProperty); }
+            set { SetValue(PaginatorBackgroundColorProperty, value); }
         }
 
         /// <summary>
@@ -296,9 +314,19 @@ namespace Xam.DataGrid.Control
         public static readonly BindableProperty GridBorderWidthProperty = BindableProperty.Create (nameof(GridBorderWidth), typeof(double), typeof(XFDataGridControl), 1.0);
 
         /// <summary>
+        /// Defines the GridBorderWidthProperty.
+        /// </summary>
+        public static readonly BindableProperty HeaderSelectorHeightProperty = BindableProperty.Create (nameof(HeaderSelectorHeight), typeof(double), typeof(XFDataGridControl), 5.0);
+
+        /// <summary>
         /// Defines the HeaderColorProperty.
         /// </summary>
         public static readonly BindableProperty HeaderColorProperty = BindableProperty.Create (nameof(HeaderColor), typeof(Color), typeof(XFDataGridControl), Color.FromHex("#D3D3D3"));
+
+        /// <summary>
+        /// Defines the HeaderColorProperty.
+        /// </summary>
+        public static readonly BindableProperty PaginatorBackgroundColorProperty = BindableProperty.Create (nameof(PaginatorBackgroundColor), typeof(Color), typeof(XFDataGridControl), Color.FromHex("#D3D3D3"));
 
         /// <summary>
         /// Defines the ItemsSourceProperty.
@@ -334,7 +362,7 @@ namespace Xam.DataGrid.Control
             Margin = 0;
             _mParent.RowDefinitions = new RowDefinitionCollection
             {
-                new RowDefinition{Height= new GridLength(HeaderHeight + 5 , GridUnitType.Absolute) },
+                new RowDefinition{Height= new GridLength(HeaderHeight + HeaderSelectorHeight , GridUnitType.Absolute) },
                 new RowDefinition{Height= GridLength.Star }
             };
 

@@ -52,6 +52,8 @@ Features:
 | GridBorderColor | We can set the border color to grid |
 | GridBorderWidth | We can set the grid border width |
 | HeaderColor | We can set the color of the grid header. |
+| HeaderSelectorHeight | We can set the height of the grid header selector. |
+| PaginatorBackgroundColor | We can set the color of the grid paginator. |
 
 Events:
 
@@ -62,4 +64,6 @@ Events:
 | OnNeedDataSource | It will trigger below scenario.Virtual Pagination – when you are selecting the page index.Sorting – on virtual pagination when you are trying to show the new data.This event will override your existing data and it will show the new item source. |
 
 
+# Output
+![GridView](https://github.com/rajeshangappan/Xamarin/blob/master/Xam.DataGrid/GridSample.gif)
 Sample Link : [GridSample](https://github.com/rajeshangappan/Xamarin/tree/master/Samples/GridSample)

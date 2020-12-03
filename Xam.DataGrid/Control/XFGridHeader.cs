@@ -72,6 +72,17 @@ namespace Xam.DataGrid.Control
         }
 
         /// <summary>
+        /// Gets the HeaderHeight.
+        /// </summary>
+        private double HeaderSelectorHeight
+        {
+            get
+            {
+                return _parent.HeaderSelectorHeight;
+            }
+        }
+
+        /// <summary>
         /// Gets the GridHelper.
         /// </summary>
         private XFGridHelper GridHelper
@@ -116,13 +127,13 @@ namespace Xam.DataGrid.Control
             this.RowDefinitions = new RowDefinitionCollection
             {
                 new RowDefinition { Height = HeaderHeight },
-                new RowDefinition{ Height = 5 }
+                new RowDefinition{ Height = HeaderSelectorHeight }
             };
             if (ColumnSource == null || ColumnSource.Count == 0)
                 CreateDeafultHeader();
             else
                 CreateGridColumnHeader();
-            BoxView v = new BoxView { BackgroundColor = BorderColor };
+            BoxView v = new BoxView { BackgroundColor = _parent.GridBorderColor };
             this.Children.Add(v, 0, 1);
             SetColumnSpan(v, count);
         }

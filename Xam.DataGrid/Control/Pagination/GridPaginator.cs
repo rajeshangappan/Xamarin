@@ -82,7 +82,7 @@ namespace Xam.DataGrid.Control
             PaginationBody.Margin = 10;
             InitializeIndex();
             this.Children.Add(PaginationBody);
-            BackgroundColor = Color.FromHex("#D3D3D3");
+            BackgroundColor = _parent.PaginatorBackgroundColor;
         }
 
         #endregion

@@ -5,7 +5,9 @@
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageProjectUrl>https://github.com/rajeshangappan/Xamarin/tree/master/Xam.DataGrid</PackageProjectUrl>
 		<PackageTags>Xamarin;Grid;Xamarin.Grid;Pagination;Virtualization;Sorting</PackageTags>
-		<PackageReleaseNotes>Xamarin Grid View</PackageReleaseNotes>
+		<PackageReleaseNotes>Added the support for new features:
+1.HeaderSelectorHeight
+2.PaginatorBackgroundColor</PackageReleaseNotes>
 		<Company>NVTech</Company>
 		<Authors>Rajesh Angappan</Authors>
 		<PackageLicenseUrl></PackageLicenseUrl>
@@ -13,7 +15,7 @@
 		<NeutralLanguage>en</NeutralLanguage>
 		<RepositoryType>Git Hub</RepositoryType>
 		<RepositoryUrl>https://github.com/rajeshangappan</RepositoryUrl>
-		<Version>1.0.1</Version>
+		<Version>1.0.2</Version>
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 		<Title>Xamarin Grid Control</Title>
 		<NeutralLanguage>en</NeutralLanguage>

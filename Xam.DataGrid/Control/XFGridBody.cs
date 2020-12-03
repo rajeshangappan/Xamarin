@@ -237,7 +237,7 @@ namespace Xam.DataGrid.Control
                     propLabel.GestureRecognizers.Add(tapGestureRecognizer);
                     column++;
                 }
-                BoxView bv = new BoxView { HeightRequest = 5, BackgroundColor = _parent.GridBorderColor };
+                BoxView bv = new BoxView { HeightRequest = _parent.GridBorderWidth, BackgroundColor = _parent.GridBorderColor };
                 grid.Children.Add(bv, 0, 1);
                 Grid.SetColumnSpan(bv, column);
                 return new ViewCell { View = grid };
