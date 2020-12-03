@@ -7,12 +7,13 @@
              x:Class="GridSample.MainPage">
 
     <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="stack" BackgroundColor="Red">
-        
+
         <Label Text="testing"></Label>
 
         <!--<Frame HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BorderColor="Yellow"></Frame>-->
 
-        <control:XFDataGridControl ItemsSource="{Binding Itemsource}" EnablePagination="True" ShowRecordPerPages="12" GridBorderColor="Blue" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" OnItemSelect="XFDataGridControl_OnItemSelect">
+        <control:XFDataGridControl ItemsSource="{Binding Itemsource}" EnablePagination="True" ShowRecordPerPages="12" HeaderSelectorHeight="3" GridBorderColor="Black" HeaderColor="#8DB3E2" HorizontalOptions="FillAndExpand"  HeaderHeight="50" VerticalOptions="FillAndExpand" PaginatorBackgroundColor="#8DB3E2" OnItemSelect="XFDataGridControl_OnItemSelect">
+
 
         </control:XFDataGridControl>
     </StackLayout>
